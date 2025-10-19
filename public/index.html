@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HiAn</title>
+        <link rel="stylesheet" type="text/css" href="../css/homepage_css.css">
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <script src="../js/config.js"></script>
+        <script src="../js/main.js"></script>
+        <script src="../js/homepage_js.js"></script>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <header>
+            <div class="top-header">
+                <div class="logo">
+                    <img src="../images/LogoHiAn_ngang.png" alt="HiAn Logo" />
+                </div>
+
+                <div class="search-bar">
+                    <div class="search-category">
+                        <select>
+                            <option>Tất cả sản phẩm</option>
+                            <option>Thảo mộc sấy khô</option>
+                            <option>Trái cây sấy dẻo</option>
+                            <option>Trái cây sấy giòn</option>
+                            <option>Trái cây sấy thăng hoa</option>
+                        </select>
+                    </div>
+                    <input type="text" placeholder="Tìm kiếm" />
+                    <button><i class="fa fa-search"></i></button>
+                </div>
+
+                <div class="user-actions">
+                    <div class="icon">
+                        <i class="fa fa-heart"></i>
+                        <span>Yêu thích</span>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Giỏ hàng</span>
+                    </div>
+                    <!--Khi chưa đăng nhập-->
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="register-btn" onclick="window.location.href='../../login.html?form=register'">Đăng ký</button>
+                        <button class="login-btn" onclick="window.location.href='../../login.html?form=login'">Đăng nhập</button>
+                    </div>
+
+                    <!--Khi đã đăng nhập-->
+                    <div class="user-info" id="userInfo" style="display: none;" onclick="toggleMenu(event)">
+                        <img src="../images/default-avatar.jpg" alt="User Avatar" class="avatar">
+                        <span id="usernameDisplay">Người dùng</span>
+                        <i class="fa fa-chevron-down"></i>
+
+                        <!--Tạo dropdown-->
+                        <ul class="dropdown-menu" id="dropdownMenu">
+                            <li><a href="#">Tài khoản của tôi</a></li>
+                            <li><a href="#">Đơn hàng của tôi</a></li>
+                            <li><a href="#" id="logoutBtn">Đăng xuất</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+            <nav class="bottom-header">
+                <ul>
+                    <li class="active"><i class="fa fa-th-large"></i> Tất cả sản phẩm</li>
+                    <li><i class="fa fa-home"></i> Trang chủ</li>
+                    <li><i class="fa fa-users"></i> Về chúng tôi</li>
+                    <li><i class="fa fa-calendar"></i> Sự kiện</li>
+                    <li><i class="fa fa-edit"></i> Blog</li>
+                    <li><i class="fa fa-envelope"></i> Liên hệ</li>
+                    <li><i class="fa fa-phone"></i> 123-456-7890 <span class="order-now">ĐẶT HÀNG NGAY</span></li>
+                </ul>
+            </nav> 
+        </header>
+    </body>
+</html>

@@ -1,0 +1,160 @@
+* {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #eaffdf;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left img {
+    width: 80%;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.right {
+    flex: 1;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #2a3b0a;
+}
+
+.center{
+    text-align: center;
+}
+
+.highlight {
+    color: #5e9f39;
+    font-weight: 700;
+}
+
+.buttons {
+    display: inline-flex;
+    justify-content: center;
+    gap: 10px;
+    background-color: #b6e79b;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background: none;
+    cursor: pointer;
+}
+
+.buttons .login_style {
+    background: #5e9f39;
+    color: white;
+}
+
+/* Ẩn mặc định */
+#loginForm, #registerForm {
+    display: none;
+}
+
+/* Khi thêm class .show */
+#loginForm.show, #registerForm.show {
+    display: flex;       /* giữ flex layout */
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+input {
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+}
+
+label, a{
+    color: #5e9f39;
+    text-decoration: none;
+}
+
+a{
+    float: right;
+}
+
+.login-btn, .register-btn {
+    margin-top: 10px;
+    background: #5e9f39;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 200px;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.social button{
+    width: 400px;
+}
+
+.google, .facebook {
+    background: #B6E79B;
+    border: none;
+    padding: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #194440;
+}
+.buttons .login_style:hover {
+    background-color: #194440;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%; 
+}
+
+.password-wrapper input {
+    width: inherit;
+    padding-right: 30px; /* chừa chỗ cho icon */
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+}
+
+

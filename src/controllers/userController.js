@@ -73,6 +73,7 @@ export const registerUser = async (req, res) => {
       profile_picture: null,
       gender: null,
       date_of_birth: null,
+      auth_id: null
     };
 
     //Call model để insert user mới

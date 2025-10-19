@@ -1,5 +1,6 @@
 import db from "../config/database.js";
 
+// tìm user theo username hoặc email
 export const findUserByIdentifier = async (identifier) => {
   const [rows] = await db.query(
     "SELECT * FROM user WHERE email = ? OR username = ?",
@@ -8,6 +9,18 @@ export const findUserByIdentifier = async (identifier) => {
   return rows[0];
 };
 
+// Tìm user theo Google ID
+export const findUserByGoogleId = async (googleId) => {
+  const [rows] = await db.query(
+    "SELECT * FROM user WHERE auth_id = ?",
+    [googleId]
+  );
+  return {
+    id: rows[0].id
+  };
+};
+
+// Tạo user mới
 export const createUser = async (userData) => {
   const {
     username,
@@ -21,12 +34,13 @@ export const createUser = async (userData) => {
     role = "customer",
     loyalty_points = 0,
     is_active = 1,
+    auth_id
   } = userData;
 
   const [result] = await db.query(
     `INSERT INTO user 
-    (username, email, password_hash, phone, address, profile_picture, gender, date_of_birth, role, loyalty_points, is_active)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    (username, email, password_hash, phone, address, profile_picture, gender, date_of_birth, role, loyalty_points, is_active, auth_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       username,
       email,
@@ -39,8 +53,20 @@ export const createUser = async (userData) => {
       role,
       loyalty_points,
       is_active,
+      auth_id
     ]
   );
 
-  return result.insertId;
+  return {
+    id: result.insertId,
+    username,
+    email,
+    auth_id,
+  };
+};
+
+// tìm user theo id
+export const findUserById = async (id) => {
+  const [rows] = await db.query("SELECT * FROM user WHERE id = ?", [id]);
+  return {id: rows[0].id};
 };

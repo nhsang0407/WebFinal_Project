@@ -188,3 +188,8 @@ function togglePassword() {
     }
 }
 
+// proccess login with google
+function google_authentication() {
+    //  call api google authentication
+    window.location.href = `${API_BASE_URL}/users/google`;
+}

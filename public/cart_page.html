@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HiAn</title>
+        <link rel="stylesheet" href="css/homepage_css.css" />
+        <link rel="stylesheet" href="css/products_detail_css.css" />
+        <link rel="stylesheet" href="css/cart_page_css.css" />
+        <script src="js/config.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/homepage_js.js"></script>
+        <script src="js/products_detail_js.js"></script>
+        <script src="js/cart_page_js.js"></script>
+
+
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+       
+    </head>
+    <body>
+        <!-- HEADER -->
+        <div id="header"></div>
+
+        <section class="your_cart">
+            <h3>Giỏ hàng của bạn</h3>
+            <div class="cart-box">
+                <!-- Left: products -->
+                <div>
+                  <table class="cart-table">
+                    <thead>
+                      <tr>
+                        <th>SẢN PHẨM</th>
+                        <th>ĐƠN GIÁ</th>
+                        <th>SỐ LƯỢNG</th>
+                        <th>TẠM TÍNH</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cartBody">
+                      
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="4">
+                            <button class="btn-continue" type="button" onclick="window.location.href='products.html'">← Tiếp tục xem sản phẩm</button>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+          
+                
+                </div>
+          
+                <!-- Right: summary -->
+                <div class="summary">
+                  <h3>Cộng giỏ hàng</h3>
+                  <table>
+                    <tr><td>Tạm tính</td><td id="subtotal"></td></tr>
+                    <tr><td>Phí vận chuyển</td><td id="shipping"></td></tr>
+                    <tr><td><strong>Tổng</strong></td><td class="total" id="grandtotal"></td></tr>
+                  </table>
+                  <button class="btn-checkout" type="button">Thanh toán</button>
+                </div>
+              </div>
+        </section>
+        
+
+        <!-- bạn có thể thích
+        <section class="you-like">
+            <h3>Bạn có thể thích</h3>
+            <div class="like-container">
+            <div class="like-products"></div>
+            </div>
+        </section> -->
+
+        <div id="footer"></div>
+        <div id="to-top"></div>
+  </body>
+
+        
+</html>

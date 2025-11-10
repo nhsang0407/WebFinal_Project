@@ -1,0 +1,281 @@
+
+.checkout-container {
+  width: 80%;
+  margin: 50px auto;
+}
+
+.checkout-title {
+  text-align: center;
+  color: #5e9f39;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* ===== Địa chỉ ===== */
+.address-box {
+  background-color: #b6e79b;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 25px;
+  position: relative;
+}
+
+.address-box span{
+  color: #5e9f39;
+  font-weight: bold;
+
+}
+
+.address-box i {
+  font-size: 1.3rem;
+  color: #5e9f39;
+}
+
+.address-box .edit-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  border: none;
+  background: transparent;
+  color: #5e9f39;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* ===== Danh sách sản phẩm ===== */
+.product-list {
+  border: 1px solid #194400;
+  padding: 10px 20px;
+  margin: 25px 0;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table tr {
+  border-bottom: 1px solid #5e9f39;
+}
+
+.product-table tr:last-child {
+  border-bottom: none;
+}
+
+.product-table td {
+  padding: 15px 10px;
+  vertical-align: middle;
+  color: #194400;
+  font-size: 14pt;
+}
+
+/* Ảnh sản phẩm */
+.product-table .product-img {
+  width: 200px;
+  text-align: center;
+}
+
+.product-table .product-img img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* Tên sản phẩm */
+.product-table .product-name {
+  width: 45%;
+  text-align: center;
+}
+
+/* Giá sản phẩm */
+.product-table .product-price {
+  width: 20%;
+  text-align: center;
+}
+
+/* Số lượng */
+.product-table .product-qty {
+  width: 20%;
+  text-align: center;
+}
+
+/* ===== Giao hàng ===== */
+.shipping-box {
+  border: 1px solid #194400;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.shipping-title {
+  display: flex;
+  align-items: center;
+  color: #5e9f39;
+  font-weight: 700;
+  font-size: 16pt;
+  justify-content: space-between;
+}
+
+.next{
+  background: none;
+  border: none;
+  color: #5e9f39;
+  font-size: 16pt;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.horizon{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.shipping-time {
+  font-size: 10pt;
+  color: #666;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #194440;
+  margin: 10px 0;
+}
+
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  color: black;
+  font-weight: 700;
+  font-size: 14pt;
+}
+
+.total-price {
+  font-size: 20pt;
+  font-weight: 700;
+  color: #5e9f39;
+}
+
+/* ===== Mã khuyến mãi ===== */
+.promo-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #194440;
+  padding: 10px 20px;
+}
+
+.fa-tag{
+  color: #5e9f39;
+  font-weight: 700;
+  font-size: 20pt;
+  margin: auto;
+  transform:scaleX(-1)}
+
+.promo-box input {
+  flex: 1;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #b6e79b;
+}
+
+.promo-box button {
+  background-color: #5e9f39;
+  border: none;
+  color: white;
+  padding: 10px 50px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 12pt;
+}
+
+.promo-box button:hover {
+  background-color: #5a9834;
+}
+
+/* ===== Phương thức thanh toán ===== */
+.payment-box {
+  border: 1px solid #194400;
+  padding: 15px;
+  color: #5e9f39;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 16pt;
+  justify-content: space-between;
+}
+
+/* ===== Chi tiết thanh toán ===== */
+.summary-box {
+  border: 1px solid #194400;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.summary-box table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-box td {
+  padding: 16px 0;
+  font-size: 1rem;
+  border-bottom:1px solid #5e9f39;
+}
+
+caption{
+  display:flex;
+  color:#5e9f39;
+  font-size:16pt;
+  font-weight:600;
+  gap: 10px;
+}
+
+.summary-box .total-row td {
+  color: #e94e2e;
+  font-weight: 700;
+  border-bottom: none;
+  padding-bottom: 15px;
+  font-size: 18pt;
+}
+
+.invoice-option {
+  display: flex;
+  font-size: 0.9rem;
+  gap:20px;
+  align-items: center;
+}
+
+.invoice-option label {
+  margin-left: 10px;
+  font-weight: 500;
+  background-color: #ece1e1;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* ===== Nút đặt hàng ===== */
+.btn-submit {
+  width: 10%;
+  padding: 15px;
+  background-color: #6cae3f;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;       /* thêm */
+  margin: 20px auto 0; 
+}
+
+.btn-submit:hover {
+  background-color: #5a9834;
+}

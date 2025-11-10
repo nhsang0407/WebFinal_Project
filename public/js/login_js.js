@@ -9,7 +9,7 @@ function showLogin() {
     loginForm.classList.add("show");
     registerForm.classList.remove("show");
 
-    promoImg.src = "../images/fruits.jpg"; //add hinh vo cho dung hinh
+    promoImg.src = "../images/out/combo best seller.png"; //add hinh vo cho dung hinh
 
     loginBtn.classList.add("active");
     registerBtn.classList.remove("active");
@@ -26,7 +26,7 @@ function showRegister() {
     loginForm.classList.remove("show");
     registerForm.classList.add("show");
 
-    promoImg.src = "../images/sale.jpg"; //add hinh vo cho dung hinh
+    promoImg.src = "../images/out/Signup.png"; //add hinh vo cho dung hinh
 
     registerBtn.classList.add("active");
     loginBtn.classList.remove("active");
@@ -93,51 +93,62 @@ async function process_login(login_uid, login_pwd) {
 
 
 //Quên mật khẩu
-function forgotPassword() {
-    const username = prompt("Nhập tên đăng nhập của bạn:");
-    if (!username) {
-        alert("Bạn chưa nhập tên đăng nhập!");
+async function changePassword() {
+    const email = prompt("Vui lòng nhập địa chỉ email của bạn:");
+    if (!email) {
+        alert("Bạn chưa nhập email!");
         return;
     }
 
-    // Lấy danh sách người dùng
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+    //change_password.html
+    try {
+        // Gọi BE để lấy thông tin user
+        const response = await fetch(`${API_BASE_URL}/users/profile?email=${encodeURIComponent(email)}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
 
-    // Tìm người dùng
-    const userIndex = users.findIndex(u => u.username === username);
-    if (userIndex === -1) {
-        alert("Không tìm thấy tên đăng nhập này!");
-        return;
+        if (!response.ok) {
+            if (response.status === 404) {
+                alert("Không tìm thấy người dùng với email này!");
+            } else {
+                alert("Lỗi máy chủ. Vui lòng thử lại sau!");
+            }
+            return;
+        }
+        // move page
+        window.location.href = 'change_password.html';
+    } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+        alert("Không thể kết nối đến máy chủ!");
     }
 
-    const newPwd = prompt("Nhập mật khẩu mới:");
-    if (!newPwd) {
-        alert("Bạn chưa nhập mật khẩu mới!");
-        return;
-    }
-
-    // Cập nhật mật khẩu
-    users[userIndex].password = newPwd;
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Đặt lại mật khẩu thành công! Hãy đăng nhập lại với mật khẩu mới.");
 }
 
 
 //Xử lý đăng ký
 async function process_register() {
+    const fullName = document.getElementById("full_name").value.trim();
+    const dob = document.getElementById("dob").value;
+    const genderEl = document.querySelector('input[name="gender"]:checked');
+    const gender = genderEl ? genderEl.value : "";
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const address = document.getElementById("address").value.trim();
     const username = document.getElementById("reg_uid").value.trim();
     const password = document.getElementById("reg_pwd").value;
     const confirm = document.getElementById("reg_pwd2").value;
 
     // Kiểm tra dữ liệu
-    if (!username || !password || !confirm) {
+    if (!fullName || !dob || !gender || !phone || !email || !address || !username || !password || !confirm) {
         alert("Vui lòng nhập đầy đủ thông tin!");
         return;
     }
+
     // Kiểm tra độ mạnh mật khẩu
     const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-
     if (!passwordRegex.test(password)) {
         alert("Mật khẩu phải có ít nhất 8 ký tự, chứa ít nhất 1 chữ hoa và 1 ký tự đặc biệt!");
         return;
@@ -148,14 +159,25 @@ async function process_register() {
         return;
     }
 
+    // Tạo object dữ liệu để gửi lên backend
+    const payload = {
+        fullName,
+        dob,
+        gender,
+        phone,
+        email,
+        address,
+        username,
+        password
+    };
+    //console.log(payload);
     try {
-        // Gọi API backend
         const response = await fetch(`${API_BASE_URL}/users/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify(payload),
         });
 
         const data = await response.json();
@@ -170,7 +192,6 @@ async function process_register() {
     } catch (error) {
         console.error("Register Error:", error);
         alert("Lỗi kết nối tới máy chủ. Vui lòng thử lại sau!");
-
     }
 }
 
@@ -193,3 +214,66 @@ function google_authentication() {
     //  call api google authentication
     window.location.href = `${API_BASE_URL}/users/google`;
 }
+
+// PASSWORD
+async function change_pw() {
+    const username = document.getElementById("user_name").value.trim();
+    const newPassword = document.getElementById("new_password").value.trim();
+    const confirmPassword = document.getElementById("confirm_password").value.trim();
+  
+    // ========== 1️⃣ Validate form ==========
+    if (!username) {
+      alert("Vui lòng nhập mã xác nhận (tên tài khoản)!");
+      return;
+    }
+  
+    if (!newPassword) {
+      alert("Vui lòng nhập mật khẩu mới!");
+      return;
+    }
+  
+    // Kiểm tra độ dài mật khẩu
+    if (newPassword.length < 8 || newPassword.length > 20) {
+      alert("Mật khẩu phải từ 8 đến 20 ký tự!");
+      return;
+    }
+  
+    // Regex kiểm tra mật khẩu hợp lệ
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$^*()_]).{8,20}$/;
+    if (!passwordRegex.test(newPassword)) {
+      alert("Mật khẩu phải có chữ hoa, chữ thường, số và ký tự đặc biệt!");
+      return;
+    }
+  
+    // Kiểm tra khớp mật khẩu xác nhận
+    if (newPassword !== confirmPassword) {
+      alert("Mật khẩu xác nhận không khớp!");
+      return;
+    }
+  
+    // ========== 2️⃣ Gọi API BE ==========
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/change-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          newPassword: newPassword
+        })
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        alert(data.message || "Đổi mật khẩu thất bại!");
+        return;
+      }
+  
+      alert(data.message);
+      // Chuyển hướng sau khi đổi mật khẩu thành công
+      window.location.href = "login.html";
+    } catch (error) {
+      console.error("Lỗi khi gọi API:", error);
+      alert("Không thể kết nối đến máy chủ. Vui lòng thử lại sau!");
+    }
+  }

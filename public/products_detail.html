@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm | HiAn</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/homepage_css.css" />
+    <link rel="stylesheet" href="css/products_detail_css.css" />
+    <link rel="stylesheet" href="css/cart_page_css.css" />
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/homepage_js.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="js/products_detail_js.js" defer></script>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div id="header"></div>
+
+    <section class="product_info">
+      <div class="product_img">
+        <img id="product-image" src="" alt="Ảnh sản phẩm" />
+      </div>
+
+      <div class="product_description">
+        <h2 id="product-name"></h2>
+        <p id="product-subtitle"></p>
+
+        <div class="product-actions">
+          <div class="heart-container">
+            <span class="heart" id="heart">♡</span>
+            <span class="like-count" id="like-count">56</span>
+          </div>
+        </div>
+
+        <div class="product_price">
+          <p class="price" id="product-price"></p>
+          <p class="old-price" id="product-oldprice"></p>
+        </div>
+
+        <div class="rating">
+          <span class="score"><i class="fa fa-star"></i> 4.7</span>
+          <span> | 💬 22 đánh giá</span>
+        </div>
+
+        <hr />
+
+        <div class="action">
+          <span class="product_quantity">
+            <button id="decrease">-</button>
+            <span id="counter">1</span>
+            <button id="increase">+</button>
+          </span>
+          <button type="button" id="addCart">
+            <i class="fa fa-shopping-bag"></i> THÊM VÀO GIỎ HÀNG
+          </button>
+        </div>
+
+        <div class="support-info">
+          <div class="support-item">
+            <span class="icon">🚚</span>
+            <div class="text">
+              <p class="title">Miễn phí Ship TP. HCM</p>
+              <p class="desc">Bán kính 10km nội thành TP. Hồ Chí Minh</p>
+            </div>
+          </div>
+          <hr />
+          <div class="support-item">
+            <span class="icon">🛍️</span>
+            <div class="text">
+              <p class="title">Đổi trả miễn phí</p>
+              <p class="desc">Hoàn trả trong vòng 7 ngày</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="product_detail_tabs">
+      <h3>Mô tả chi tiết</h3>
+      <div id="product-description"></div>
+    </section>
+
+    <section class="you-like">
+        <h3>Bạn có thể thích</h3>
+        <div class="like-container">
+          <div class="like-products"></div>
+        </div>
+      </section>
+      
+      
+      
+
+
+    <!-- FOOTER -->
+    <div id="footer"></div>
+    <div id="to-top"></div>
+  </body>
+</html>

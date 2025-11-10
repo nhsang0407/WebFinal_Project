@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HiAn</title>
+        <link rel="stylesheet" type="text/css" href="css/homepage_css.css">
+        <script src="js/config.js" defer></script>
+        <script src="js/main.js" defer></script>
+        <script src="js/homepage_js.js" defer></script>
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <style>
+            /* import font Cherry Bomb One */
+            @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
+        </style>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <div id="header"></div>
+
+        <section class="account_container">
+            <!-- Sidebar -->
+            <aside class="account_sidebar">
+                <h4>TÀI KHOẢN</h4>
+                <ul>
+                    <li class="active" data-target="info">Thông tin tài khoản</li>
+                    <li data-target="orders">Lịch sử mua hàng</li>
+                    <li data-target="address">Danh sách địa chỉ</li>
+                    <li class="logout">Đăng xuất</li>
+                </ul>
+            </aside>
+
+            <!-- Main content -->
+            <div class="account_content">
+
+                <!-- THÔNG TIN TÀI KHOẢN -->
+                <div class="tab_content active" id="info">
+                    <div class="profile_header">
+                        <div class="profile_info">
+                            <img src="../images/default-avatar.jpg" alt="avatar">
+                            <div>
+                                <h4 class="fullNameView">Phạm Huyền</h4>
+                                <p class="phoneView">0976 106 992</p>
+                                <small class="addressView">TP. Hồ Chí Minh</small>
+                            </div>
+                        </div>
+                        <div class="profile_actions">
+                            <button class="btn_green" id="uploadAvatarBtn">Cập nhật ảnh</button>
+                            <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+
+                            <button class="btn_white" id="editBtn">Chỉnh sửa</button>
+                        </div>
+                    </div>
+
+                    <!-- Xem thông tin -->
+                    <div class="view_mode" id="viewMode">
+                        <table class="account_info_table">
+                            <tr>
+                                <td><strong>Họ và tên:</strong></td>
+                                <td class="fullNameView">Full Name</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td class="emailView">Mail</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Số điện thoại:</strong></td>
+                                <td class="phoneView">Phone</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Địa chỉ:</strong></td>
+                                <td class="addressView">Address</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <!-- Chỉnh sửa -->
+                    <form class="edit_mode" id="editMode">
+                        <label>Họ:</label>
+                        <input type="text" id="firstName" value="Họ">
+                        <label>Tên:</label>
+                        <input type="text" id="lastName" value="Tên">
+                        <label>Email:</label>
+                        <input type="email" id="email" value="Mail">
+                        <label>Số điện thoại:</label>
+                        <input type="text" id="phone" value="Phone">
+                        <label>Địa chỉ:</label>
+                        <input type="text" id="address_acc" value="Address">
+                        <button type="submit" class="btn_green">Cập nhật</button>
+                    </form>
+                </div>
+
+                <!-- LỊCH SỬ MUA HÀNG -->
+                <div class="tab_content" id="orders">
+                    <h3>LỊCH SỬ MUA HÀNG</h3>
+                    <table class="order_table">
+                        <thead>
+                            <tr>
+                                <th>Mã đơn</th>
+                                <th>Ngày đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#DH001</td>
+                                <td>10/10/2025</td>
+                                <td>350.000đ</td>
+                                <td>Hoàn thành</td>
+                            </tr>
+                            <tr>
+                                <td>#DH002</td>
+                                <td>12/10/2025</td>
+                                <td>150.000đ</td>
+                                <td>Đang giao</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="order-container"></div>
+
+                <!-- DANH SÁCH ĐỊA CHỈ -->
+                <div class="tab_content" id="address">
+                    <!-- DANH SÁCH ĐỊA CHỈ
+                    <div class="address_card default">
+                        <div class="address_name">Phạm Huyền</div>
+                        <div class="address_info">
+                            <p><strong>Số điện thoại:</strong> 0976 106 992</p>
+                            <p><strong>Địa chỉ:</strong> 238/2b Đường Hoàng Diệu 2 , Phường Linh Chiểu, TP. Thủ Đức, TP. Hồ Chí Minh</p>
+                            <span class="default_tag">Địa chỉ mặc định</span>
+                        </div>
+                        <div class="address_actions">
+                            <label>
+                                <input type="checkbox" class="defaultCheckbox" checked>
+                                Làm mặc định
+                            </label>
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div>
+                
+                    <div class="address_card">
+                        <div class="address_name">Bích Nga</div>
+                        <div class="address_info">
+                            <p><strong>Số điện thoại:</strong> 0123 456 789</p>
+                            <p><strong>Địa chỉ:</strong> KTX Khu B, Đường Mạc Đĩnh Chi , Phường Linh Xuân, TP. Thủ Đức, TP. Hồ Chí Minh</p>
+                            <span class="default_tag" style="display:none;">Địa chỉ mặc định</span>
+                        </div>
+                        <div class="address_actions">
+                            <label>
+                                <input type="checkbox" class="defaultCheckbox">
+                                Làm mặc định
+                            </label>
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div> -->
+                
+                    <!-- Nút thêm địa chỉ -->
+                    <button class="btn_add_address">+ Thêm địa chỉ mới</button>
+
+                    <!-- Popup thêm/sửa địa chỉ -->
+                    <div id="popup_address" class="popup-overlay" style="display: none;">
+                    <div class="popup-content green-form">
+                        <h3 id="popupTitle"></h3>
+
+                        <div class="form-group">
+                            <label>Liên hệ</label>
+                            <input type="text" placeholder="Họ và tên" id="newName">
+                            <input type="text" placeholder="Số điện thoại" id="newPhone">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tỉnh/ Thành phố</label>
+                            <input type="text" placeholder="Nhập Tỉnh/Thành phố" id="newCity">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Quận/ Huyện</label>
+                            <input type="text" placeholder="Nhập Quận/ Huyện" id="newDistrict">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phường/ Xã</label>
+                            <input type="text" placeholder="Nhập Phường/ Xã" id="newWard">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" placeholder="Tên đường, Tòa nhà, Số nhà" id="newAddress">
+                            <label class="default-checkbox">
+                                <input type="checkbox" id="newDefault"> Đặt làm địa chỉ mặc định
+                            </label>
+                        </div>
+
+                        <div class="popup-buttons">
+                            <button id="cancelAddress" class="btn-cancel">QUAY LẠI</button>
+                            <button id="saveAddress" class="btn-save">HOÀN THÀNH</button>
+                        </div>
+
+                        <span id="closePopup" class="close-popup">&times;</span>
+                    </div>
+                    </div>
+                </div>
+                
+        </section>
+        <!-- FOOTER -->
+        <div id="footer"></div>
+        <div id="to-top"></div>
+        <script src="js/Account_js.js"></script>
+    </body>
+</html>

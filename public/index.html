@@ -7,75 +7,253 @@
         <link rel="stylesheet" type="text/css" href="../css/homepage_css.css">
         <!-- Font Awesome CDN -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-        <script src="../js/config.js"></script>
-        <script src="../js/main.js"></script>
-        <script src="../js/homepage_js.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/homepage_js.js"></script>
     </head>
     <body>
         <!-- HEADER -->
-        <header>
-            <div class="top-header">
-                <div class="logo">
-                    <img src="../images/LogoHiAn_ngang.png" alt="HiAn Logo" />
+        <div id="header"></div>
+
+        <section>
+            <div class="banner">
+                <div class="banner-slider">
+                    <img src="../images/banner.png" class="banner-img active" alt="Banner 1">
+                    <img src="../images/out/combo best seller.png" class="banner-img" alt="Banner 2">
+                    <img src="../images/minigame.png" class="banner-img" alt="Banner 3">
                 </div>
+                <!-- Nút điều khiển -->
+                <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="next" onclick="changeSlide(1)">&#10095;</button>
+            </div>
+        </section>
+        
+        <!-- DANH MỤC NỔI BẬT -->
+        <section class="featured-section">
+            <div class="featured-header">
+              <h2 class="featured-title" >DANH MỤC NỔI BẬT</h2>
+              <a href="products.html" class="view-more">
+                Xem thêm <span class="arrow">→</span>
+              </a>
+            </div>
+        
 
-                <div class="search-bar">
-                    <div class="search-category">
-                        <select>
-                            <option>Tất cả sản phẩm</option>
-                            <option>Thảo mộc sấy khô</option>
-                            <option>Trái cây sấy dẻo</option>
-                            <option>Trái cây sấy giòn</option>
-                            <option>Trái cây sấy thăng hoa</option>
-                        </select>
-                    </div>
-                    <input type="text" placeholder="Tìm kiếm" />
-                    <button><i class="fa fa-search"></i></button>
-                </div>
-
-                <div class="user-actions">
-                    <div class="icon">
-                        <i class="fa fa-heart"></i>
-                        <span>Yêu thích</span>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span>Giỏ hàng</span>
-                    </div>
-                    <!--Khi chưa đăng nhập-->
-                    <div class="auth-buttons" id="authButtons">
-                        <button class="register-btn" onclick="window.location.href='../../login.html?form=register'">Đăng ký</button>
-                        <button class="login-btn" onclick="window.location.href='../../login.html?form=login'">Đăng nhập</button>
-                    </div>
-
-                    <!--Khi đã đăng nhập-->
-                    <div class="user-info" id="userInfo" style="display: none;" onclick="toggleMenu(event)">
-                        <img src="../images/default-avatar.jpg" alt="User Avatar" class="avatar">
-                        <span id="usernameDisplay">Người dùng</span>
-                        <i class="fa fa-chevron-down"></i>
-
-                        <!--Tạo dropdown-->
-                        <ul class="dropdown-menu" id="dropdownMenu">
-                            <li><a href="#">Tài khoản của tôi</a></li>
-                            <li><a href="#">Đơn hàng của tôi</a></li>
-                            <li><a href="#" id="logoutBtn">Đăng xuất</a></li>
-                        </ul>
-
-                    </div>
+        <div class="featured-list">
+            <div class="featured-item">
+                <img src="../images/Hình/măng cụt 150g.png" alt="Trái cây sấy thăng hoa">
+                <div class="featured-info">
+                    <h3>Trái cây sấy thăng hoa</h3>
+                    <p>Chỉ từ <span>190.000đ</span></p>
+                    <button>Mua ngay</button>
                 </div>
             </div>
 
-            <nav class="bottom-header">
-                <ul>
-                    <li class="active"><i class="fa fa-th-large"></i> Tất cả sản phẩm</li>
-                    <li><i class="fa fa-home"></i> Trang chủ</li>
-                    <li><i class="fa fa-users"></i> Về chúng tôi</li>
-                    <li><i class="fa fa-calendar"></i> Sự kiện</li>
-                    <li><i class="fa fa-edit"></i> Blog</li>
-                    <li><i class="fa fa-envelope"></i> Liên hệ</li>
-                    <li><i class="fa fa-phone"></i> 123-456-7890 <span class="order-now">ĐẶT HÀNG NGAY</span></li>
-                </ul>
-            </nav> 
-        </header>
+            <div class="featured-item">
+                <img src="../images/Hình/Bưởi sấy dẻo 200g.png" alt="Trái cây sấy dẻo">
+                <div class="featured-info">
+                    <h3>Trái cây sấy dẻo</h3>
+                    <p>Chỉ từ <span>54.000đ</span></p>
+                    <button>Mua ngay</button>
+                </div>
+            </div>
+
+            <div class="featured-item">
+                <img src="../images/Hình/chuối sấy giòn 120g.png" alt="Trái cây sấy giòn">
+                <div class="featured-info">
+                    <h3>Trái cây sấy giòn</h3>
+                    <p>Chỉ từ <span>24.000đ</span></p>
+                    <button>Mua ngay</button>
+                </div>
+            </div>
+
+            <div class="featured-item">
+                <img src="../images/Hình/Bịch 225g Bông atisô sấy khô.png" alt="Thảo mộc sấy khô">
+                <div class="featured-info">
+                    <h3>Thảo mộc sấy khô</h3>
+                    <p>Chỉ từ <span>45.000đ</span></p>
+                    <button>Mua ngay</button>
+                </div>
+            </div>
+        </div>
+        </section>
+        <!--BANNER-->
+
+        <section class="promo-banner">
+            <img src="../images/raw/raw/flip xoài lát.png" alt="Xoài lát sấy giòn" class="banner-bg">
+
+            <div class="banner-content">
+                <h3><span class="highlight">hottrend</span> &nbsp;vừa đổ bộ hôm nay !!!</h3>
+                <h1>Bịch goods Xoài lát sấy giòn</h1>
+                <button class="buy-btn">Mua ngay</button>
+            </div>
+        </section>
+
+
+        <!-- SẢN PHẨM BÁN CHẠY -->
+        <section class="bestseller-section">
+            <div class="bestseller-header">
+            <h2 class="bestseller-title">SẢN PHẨM BÁN CHẠY</h2>
+            <p class="bestseller-subtitle">Top sản phẩm có doanh số cao nhất trong tuần</p>
+            </div>
+        
+            <div class="bestseller-list">
+            <!-- 1 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/Bưởi sấy dẻo 225g.png" alt="Buoi say deo">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.7</span> | <span>22 đánh giá</span>
+                </div>
+                <h3>Bịch 225g Bưởi sấy dẻo</h3>
+                <p class="price">64.000đ <span class="old-price">80.000đ</span></p>
+                </div>
+            </div>
+        
+            <!-- 2 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/Cam sấy dẻo 225g.png" alt="Cam say deo">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.8</span> | <span>25 đánh giá</span>
+                </div>
+                <h3>Bịch 225g Cam sấy dẻo</h3>
+                <p class="price">86.400đ <span class="old-price">108.000đ</span></p>
+                </div>
+            </div>
+        
+            <!-- 3 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/mít 60g.png" alt="Mit say gion">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.7</span> | <span>22 đánh giá</span>
+                </div>
+                <h3>Hũ tobita 60g Mít sấy giòn</h3>
+                <p class="price">28.000đ <span class="old-price">35.000đ</span></p>
+                </div>
+            </div>
+        
+            <!-- 4 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/thanh long 200g.png" alt="Thanh long say deo">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.7</span> | <span>22 đánh giá</span>
+                </div>
+                <h3>Hũ tobita 200g Thanh long sấy dẻo</h3>
+                <p class="price">62.400đ <span class="old-price">78.000đ</span></p>
+                </div>
+            </div>
+        
+            <!-- 5 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/Xoài sấy dẻo 200g.png" alt="Xoai say deo">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.7</span> | <span>22 đánh giá</span>
+                </div>
+                <h3>Hũ tobita 200g Xoài sấy dẻo</h3>
+                <p class="price">76.000đ <span class="old-price">95.000đ</span></p>
+                </div>
+            </div>
+        
+            <!-- 6 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/Chuối sấy giòn 100g.png" alt="Chuoi say gion">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.8</span> | <span>23 đánh giá</span>
+                </div>
+                <h3>Hũ tobita 100g Chuối sấy giòn</h3>
+                <p class="price">24.800đ <span class="old-price">31.000đ</span></p>
+                </div>
+            </div>
+        
+            <!-- 7 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/măng cụt 180g.png" alt="Mang cut say thang hoa">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.7</span> | <span>22 đánh giá</span>
+                </div>
+                <h3>Hũ 180g Măng cụt sấy thăng hoa</h3>
+                <p class="price">236.000đ <span class="old-price">295.000đ</span></p>
+                </div>
+            </div>
+        
+            <!-- 8 -->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/khoai lang vàng 90g.png" alt="Khoai lang say gion">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.7</span> | <span>22 đánh giá</span>
+                </div>
+                <h3>Hũ tobita 90g Khoai lang vàng sấy giòn</h3>
+                <p class="price">30.400đ <span class="old-price">38.000đ</span></p>
+                </div>
+            </div>
+            <!--9-->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/Hồng sấy treo 160g.png" alt="Hong say treo">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.7</span> | <span>22 đánh giá</span>
+                </div>
+                <h3>Hộp raisu 160g Hồng sấy treo</h3>
+                <p class="price">165.000đ <span class="old-price">132.000đ</span></p>
+                </div>
+            </div>
+            <!--10-->
+            <div class="product-card">
+                <div class="discount-tag">20%</div>
+                <img src="../images/Hình/Ổi 225g.png" alt="Oi say deo">
+                <div class="product-info">
+                <div class="rating">
+                    <span>⭐ 4.8</span> | <span>27 đánh giá</span>
+                </div>
+                <h3>Bịch kraft 225g Ổi sấy dẻo</h3>
+                <p class="price">71.000đ <span class="old-price">56.800đ</span></p>
+                </div>
+            </div>
+            </div>
+        
+            <div class="see-more">
+            <button class="see-more-btn" onclick="window.location.href='products.html'">XEM THÊM →</button>
+            </div>
+        </section>
+        
+        <!-- FOOTER PLUS -->
+        <section class="footer-plus">
+            <div class="footer-plus-container">
+              <div class="footer-plus-left">
+                <img src="../images/minigame.png" alt="Minigame Combo" />
+              </div>
+              <div class="footer-plus-right">
+                <h2>Nhận tin tức mới nhất và ưu đãi đặc biệt từ HiAn!!</h2>
+                <p>
+                  Đừng bỏ lỡ các thông báo về sản phẩm mới, chương trình khuyến mãi hấp dẫn,
+                  và những bí quyết ăn vặt ngon miệng chỉ dành riêng cho bạn. Hãy nhập email
+                  để đồng hành cùng HiAn ngay hôm nay!
+                </p>
+                <form class="newsletter-form">
+                  <input type="email" placeholder="Nhập email của bạn" required />
+                  <button type="submit">Đăng ký</button>
+                </form>
+              </div>
+            </div>
+        </section>        
+        <!-- FOOTER -->
+        <div id="footer"></div>
+        <!-- Nút lên đầu trang -->
+        <div id="to-top"></div>
     </body>
 </html>

@@ -1,12 +1,16 @@
 import db from "../config/database.js";
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (search = "") => {
   const [rows] = await db.query(
-    `SELECT p.*, c.category_name, s.supplier_name 
-     FROM product p
-     LEFT JOIN category c ON p.category_id = c.category_id
-     LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
-     ORDER BY p.product_id DESC`
+    `
+    SELECT p.*, c.category_name, s.supplier_name 
+    FROM product p
+    LEFT JOIN category c ON p.category_id = c.category_id
+    LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
+    WHERE p.product_name LIKE ?
+    ORDER BY p.product_id DESC
+    `,
+    [`%${search}%`]
   );
   return rows;
 };
@@ -48,3 +52,16 @@ export const deleteProduct = async (id) => {
   const [result] = await db.query(`DELETE FROM product WHERE product_id=?`, [id]);
   return result.affectedRows;
 };
+
+export const getProductsByPrice = async (maxPrice) => {
+  const query = `
+    SELECT *
+    FROM product
+    WHERE price <= ?
+    ORDER BY price ASC
+  `;
+  const [rows] = await db.query(query, [maxPrice]);
+  return rows;
+};
+
+

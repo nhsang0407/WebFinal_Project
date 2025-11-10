@@ -15,6 +15,9 @@ export const findUserByGoogleId = async (googleId) => {
     "SELECT * FROM user WHERE auth_id = ?",
     [googleId]
   );
+
+  if (rows.length===0) return null;
+
   return {
     id: rows[0].id
   };
@@ -28,7 +31,7 @@ export const createUser = async (userData) => {
     password_hash,
     phone = null,
     address = null,
-    profile_picture = null,
+    full_name = null,
     gender = null,
     date_of_birth = null,
     role = "customer",
@@ -39,7 +42,7 @@ export const createUser = async (userData) => {
 
   const [result] = await db.query(
     `INSERT INTO user 
-    (username, email, password_hash, phone, address, profile_picture, gender, date_of_birth, role, loyalty_points, is_active, auth_id)
+    (username, email, password_hash, phone, address, full_name, gender, date_of_birth, role, loyalty_points, is_active, auth_id)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       username,
@@ -47,7 +50,7 @@ export const createUser = async (userData) => {
       password_hash,
       phone,
       address,
-      profile_picture,
+      full_name,
       gender,
       date_of_birth,
       role,
@@ -68,5 +71,10 @@ export const createUser = async (userData) => {
 // tìm user theo id
 export const findUserById = async (id) => {
   const [rows] = await db.query("SELECT * FROM user WHERE id = ?", [id]);
-  return {id: rows[0].id};
+  return {
+    id:rows[0].user_id,
+    username:rows[0].username,
+    email:rows[0].email,
+    auth_id:rows[0].auth_id,
+  };
 };

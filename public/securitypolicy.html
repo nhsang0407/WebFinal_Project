@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HiAn</title>
+        <link rel="stylesheet" type="text/css" href="css/homepage_css.css">
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <script src="js/config.js" defer></script>
+        <script src="js/main.js" defer></script>
+        <script src="js/homepage_js.js" defer></script>
+        <style>
+            /* import font Cherry Bomb One */
+            @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
+        </style>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <div id="header"></div>
+        
+        <!--ĐIỀU KHOẢN & CHÍNH SÁCH-->
+        <section class="policy-section">
+            <div class="policy-container">
+                <!-- SIDEBAR TRÁI -->
+                <div id="sidebarContainer"></div>
+
+
+                <div class="policy-content">
+                    <!-- Chính sách bảo mật -->
+                    <div id="privacy" class="policy-item">
+                        <h2>Chính sách bảo mật</h2>
+                        <p>
+                            <b>HiAn</b> cam kết bảo vệ thông tin cá nhân của khách hàng. Thông tin thu thập chỉ sử dụng vào mục đích xử lý đơn hàng, cung cấp thông tin khuyến mãi và nâng cao trải nghiệm mua sắm của khách hàng.                        
+                        </p>
+                        <p>
+                            Chúng tôi đảm bảo rằng thông tin cá nhân sẽ không được chia sẻ cho bên thứ ba, ngoại trừ các đối tác vận chuyển (Giao Hàng Nhanh, Giao Hàng Tiết Kiệm, Viettel Post) hoặc khi có yêu cầu từ cơ quan pháp luật.
+                        </p>
+                        <p>
+                            Hệ thống của chúng tôi áp dụng các biện pháp bảo mật nghiêm ngặt để bảo vệ dữ liệu khỏi truy cập trái phép. Khách hàng có quyền kiểm tra, chỉnh sửa hoặc yêu cầu xóa thông tin cá nhân bất kỳ lúc nào bằng cách liên hệ qua email 
+                            <b><i>hian.hcm@gmail.com</i></b> hoặc gọi <b><i>hotline 123-456-7890.</i></b>
+                        </p>
+                        <p>
+                            Cảm ơn quý khách đã tin tưởng và đồng hành cùng <b>HiAn!</b>
+                        </p>
+                        <div class="privacy-img">
+                            <img src="../images/icon_security.jpg" alt="Security"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER PLUS -->
+        <section class="footer-plus">
+            <div class="footer-plus-container">
+              <div class="footer-plus-left">
+                <img src="../images/minigame.png" alt="Minigame Combo" />
+              </div>
+              <div class="footer-plus-right">
+                <h2>Nhận tin tức mới nhất và ưu đãi đặc biệt từ HiAn!!</h2>
+                <p>
+                  Đừng bỏ lỡ các thông báo về sản phẩm mới, chương trình khuyến mãi hấp dẫn,
+                  và những bí quyết ăn vặt ngon miệng chỉ dành riêng cho bạn. Hãy nhập email
+                  để đồng hành cùng HiAn ngay hôm nay!
+                </p>
+                <form class="newsletter-form">
+                  <input type="email" placeholder="Nhập email của bạn" required />
+                  <button type="submit">Đăng ký</button>
+                </form>
+              </div>
+            </div>
+        </section>
+          
+          
+        
+        <!-- FOOTER -->
+        <div id="footer"></div>
+        <div id="to-top"></div>
+        
+        <script>
+            // Tải sidebar từ file riêng
+            fetch("../policy-sidebar.html") // hoặc đúng đường dẫn của bạn
+              .then(res => res.text())
+              .then(data => {
+                document.getElementById("sidebarContainer").innerHTML = data;
+          
+                // Xử lý highlight tab theo trang hiện tại
+                const currentPage = window.location.pathname.split("/").pop();
+                const links = document.querySelectorAll(".policy-sidebar li");
+          
+                links.forEach(link => {
+                  // Khi click -> điều hướng sang trang tương ứng
+                  link.addEventListener("click", () => {
+                    window.location.href = link.dataset.page;
+                  });
+          
+                  // Trang hiện tại -> active
+                  if (link.dataset.page === currentPage) {
+                    link.classList.add("active");
+                  }
+                });
+              });
+          </script>
+          
+    </body>
+</html> 

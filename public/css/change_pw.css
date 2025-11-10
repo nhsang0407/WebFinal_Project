@@ -1,0 +1,250 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #F1FFD9; /* nền xanh nhạt như mockup */
+    color: #2a3b0a;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 24px;
+}
+
+.left {
+    flex: 1 1 360px;
+    max-width: 480px;
+    display: flex;
+    justify-content: center;
+}
+
+#promo-img {
+    width: 100%;
+    border-radius: 24px;
+    background-color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(94,159,57,0.2);
+    box-shadow: 0 24px 40px rgba(0,0,0,0.08);
+    display: block;
+}
+
+.right {
+    flex: 1 1 360px;
+    max-width: 460px;
+    color: #2a3b0a;
+}
+
+.right h2 {
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #2a3b0a;
+    margin-bottom: 12px;
+}
+
+.highlight {
+    color: #5e9f39;
+    font-weight: 700;
+}
+
+.center p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #2a3b0a;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.center p b {
+    font-weight: 600;
+    color: #2a3b0a;
+}
+
+.right h2 .highlight {
+    display: inline-block;
+    color: #5e9f39;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+/* ====== FORM CHÍNH ====== */
+#change_password_form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#change_password_form > label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2a3b0a;
+    line-height: 1.4;
+}
+
+#change_password_form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #2a3b0a;
+    background-color: #fff;
+    border: 1.5px solid #5e9f39;
+    border-radius: 8px;
+    outline: none;
+}
+
+#change_password_form input[type="password"]::placeholder {
+    color: #6b6b6b;
+    font-weight: 400;
+}
+
+#change_password_form input[type="password"]:focus {
+    box-shadow: 0 0 0 3px rgba(94,159,57,0.18);
+}
+
+#change_password_form input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #2a3b0a;
+    background-color: #fff;
+    border: 1.5px solid #5e9f39;
+    border-radius: 8px;
+    outline: none;
+}
+
+#change_password_form input[type="text"]::placeholder {
+    color: #6b6b6b;
+    font-weight: 400;
+}
+
+#change_password_form input[type="text"]:focus {
+    box-shadow: 0 0 0 3px rgba(94,159,57,0.18);
+}
+
+#change_password_form > div {
+    background: transparent;
+    border-radius: 12px;
+    padding: 4px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #2a3b0a;
+}
+
+#change_password_form > div > label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-weight: 400;
+    color: #2a3b0a;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+#change_password_form > div > label > input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: #5e9f39;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.center {
+    text-align: center;
+}
+
+/* nút */
+.change-password-bth {
+    background-color: #5e9f39;
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    min-width: 200px;
+    width: 100%;
+    box-shadow: 0 18px 30px rgba(94,159,57,0.4);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.15s ease-in-out;
+    margin-top: 4px;
+}
+
+.change-password-bth:hover {
+    background-color: #194440;
+    box-shadow: 0 20px 36px rgba(25,68,64,0.45);
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 24px;
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+    .left {
+        max-width: 400px;
+    }
+
+    #promo-img {
+        border-radius: 20px;
+    }
+
+    .right {
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .right h2 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .right h2 .highlight {
+        font-size: 1.15rem;
+    }
+
+    .center p {
+        font-size: 0.9rem;
+        margin-bottom: 14px;
+    }
+
+    .change-password-bth {
+        font-size: 0.95rem;
+        padding: 13px 20px;
+        border-radius: 36px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .change-password-bth {
+        font-size: 0.95rem;
+        padding: 12px 16px;
+    }
+}

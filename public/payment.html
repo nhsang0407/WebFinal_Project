@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HiAn</title>
+        <link rel="stylesheet" type="text/css" href="css/homepage_css.css">
+        <link rel="stylesheet" type="text/css" href="css/payment_css.css">
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        <script src="js/config.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/homepage_js.js"></script>
+        <script src="js/payment_js.js"></script>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <div id="header"></div>
+        
+        <div class="checkout-container">
+            <h1 class="checkout-title">THANH TOÁN</h1>
+        
+            <!-- ===== Địa chỉ nhận hàng ===== -->
+            <div class="address-box">
+                <div>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Địa chỉ mua hàng</span>
+                </div>
+                <div>
+                    <strong>Phạm Huyền</strong> | 0976 106 992<br><br>
+                    <small>238/2b Đường Hoàng Diệu 2, Phường Linh Chiểu, TP. Thủ Đức, TP. Hồ Chí Minh</small>
+                </div>
+                <button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+            </div>
+        
+            <!-- ===== Danh sách sản phẩm ===== -->
+            <div class="product-list">
+                <table class="product-table">
+                </table>
+            </div>
+            
+  
+  
+        
+            <!-- ===== Giao hàng ===== -->
+            <div class="shipping-box">
+                <div class="shipping-title">
+                    <span><i class="fa-solid fa-truck"></i> Giao hàng tiết kiệm</span>
+                    <button class="next">&#10095;</button>
+                </div>
+                <div class="horizon">
+                    <span class="shipping-time">Nhận hàng vào 31/11/2025 - 01/12/2025</span>
+                    <span class="shipping-fee">30.000 VNĐ</span> 
+                </div>
+                <hr/>
+                <div class="total-line">
+                    <span>Tổng số tiền (5 sản phẩm):</span>
+                    <span class="total-price">340.800 VNĐ</span>
+                </div>
+            </div>
+        
+            <!-- ===== Mã khuyến mãi ===== -->
+            <div class="promo-box">
+                <i class="fa-solid fa-tag"></i>
+                <input type="text" placeholder="Nhập mã khuyến mãi của bạn" />
+                <button>Nhập mã</button>
+            </div>
+        
+            <!-- ===== Phương thức thanh toán ===== -->
+            <div class="payment-box">
+                <span>
+                    <i class="fa-regular fa-credit-card"></i>
+                    Phương thức thanh toán
+                </span>
+                <select id="paymentMethod" name="paymentMethod">
+                    <option value="cash" selected>Thanh toán khi nhận hàng (COD)</option>
+                    <option value="credit">Thẻ Tín dụng (Credit Card)</option>
+                    <option value="debit">Thẻ Ghi nợ (Debit Card)</option>
+                    <option value="transfer">Chuyển khoản ngân hàng</option>
+                </select>
+            </div>
+        
+            <!-- ===== Chi tiết thanh toán ===== -->
+            <div class="summary-box">
+                <table>
+                <caption><i class="fa-solid fa-file-invoice"></i>Chi tiết thanh toán</caption>
+                <tr>
+                    <td>Tổng đơn hàng</td>
+                    <td style="text-align:right;"></td>
+                </tr>
+                <tr>
+                    <td>Tổng tiền phí vận chuyển</td>
+                    <td style="text-align:right;"></td>
+                </tr>
+                <tr>
+                    <td>Tổng giảm giá</td>
+                    <td style="text-align:right;"></td>
+                </tr>
+                <tr class="total-row">
+                    <td>Tổng thanh toán:</td>
+                    <td style="text-align:right;"></td>
+                </tr>
+                </table>
+        
+                <div class="invoice-option">
+                <p>Bạn có muốn xuất hóa đơn VAT không?</p>
+                <label><input type="radio" name="vat" checked> Không</label>
+                <label><input type="radio" name="vat"> Có</label>
+                </div>
+            </div>
+        
+            <!-- ===== Nút đặt hàng ===== -->
+             <div>
+                <button class="btn-submit">ĐẶT HÀNG</button>
+             </div>
+            
+        </div>
+
+        <div id="addressListPopup" class="popup-overlay" style="display:none;">
+            <div class="popup-content green-form">
+                <h3>Thay đổi địa chỉ</h3>
+                <div id="addressListContainer">
+                    <!-- Nội dung sẽ được load từ account.html -->
+                </div>
+                <div class="popup-buttons">
+                    <button id="closeAddressPopup" class="btn-cancel">ĐÓNG</button>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- FOOTER -->
+        <div id="footer"></div>
+        <div id="to-top"></div>
+    </body>
+</html>

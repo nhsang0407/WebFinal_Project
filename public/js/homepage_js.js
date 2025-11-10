@@ -32,22 +32,32 @@ document.onclick = function (e) {
     }
 };
 
-// 👉 Xử lý đăng xuất
-document.addEventListener("DOMContentLoaded", function () {
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-        logoutBtn.onclick = function (e) {
-            e.preventDefault(); // Ngăn trình duyệt load lại trang khi click <a>
-            logout(); // call logout funtion in main.js
+document.addEventListener("DOMContentLoaded", () => {
+  const slider = document.querySelector('.banner-slider');
+  const slides = document.querySelectorAll('.banner-img');
+  const totalSlides = slides.length;
+  let currentSlide = 0;
 
-            // Ẩn thông tin người dùng, hiện lại nút đăng nhập
-            document.getElementById("userInfo").style.display = "none";
-            document.getElementById("authButtons").style.display = "flex";
-
-            // Ẩn menu dropdown
-            document.getElementById("dropdownMenu").style.display = "none";
-
-            location.reload();
-        };
+  function updateSlide() {
+    if (!slider) {
+      console.error("Không tìm thấy phần tử .banner-slider");
+      return;
     }
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  function changeSlide(direction) {
+    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+    updateSlide();
+  }
+
+  // 🔹 Thêm dòng này để HTML có thể gọi được hàm
+  window.changeSlide = changeSlide;
+
+  setInterval(() => {
+    changeSlide(1);
+  }, 5000);
 });
+
+
+

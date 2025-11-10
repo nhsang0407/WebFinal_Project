@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HiAn</title>
+  <link rel="stylesheet" href="../css/products_detail_css.css" />
+  <link rel="stylesheet" href="../css/products_css.css" />
+  <link rel="stylesheet" href="../css/homepage_css.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="js/config.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/homepage_js.js" defer></script>
+  <script src="js/products_js.js" defer></script>
+  <script src="js/cart_page_js.js" defer></script>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div id="header"></div>
+
+
+  <!-- TẤT CẢ SẢN PHẨM -->
+  <section class="all-products">
+    <div class="all-products-container">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <h3>TẤT CẢ SẢN PHẨM</h3>
+        <ul id="categoryList" class="category-list">
+        </ul>
+
+        <div class="price-filter">
+          <h4>Bộ lọc giá</h4>
+
+          <div class="price-range">
+            <input type="range" min="0" max="500000" value="250000" id="priceRange" step="10000" />
+            <div class="price-values">
+              <span>0đ</span>
+
+              <div class="input-wrapper">
+                <input type="number" id="maxPriceInput" min="0" max="500000" value="250000" />
+                <span>đ</span>
+              </div>
+            </div>
+
+            <!-- 👇 Giá hiện tại khi kéo -->
+            <div class="price-display">
+              Giá tối đa: <span id="priceValue">250.000đ</span>
+            </div>
+          </div>
+
+          <button class="clear-btn" id="clearFilterBtn">Xóa lọc</button>
+        </div>
+      </aside>
+
+      <!-- MAIN PRODUCT AREA -->
+      <div class="pproduct-section">
+        <div class="pbanner">
+          <img src="../images/raw/raw/flip khoai lang tím.png" alt="banner sản phẩm" class="pbanner-product" />
+          <button class="pbanner-btn">Tất cả sản phẩm</button>
+        </div>
+
+        <div class="bestseller-list" id="bestseller-list">
+        </div>
+
+        <div class="pagination">
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <span>...</span>
+          <a href="#">9</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- FOOTER PLUS -->
+  <section class="footer-plus">
+    <div class="footer-plus-container">
+      <div class="footer-plus-left">
+        <img src="../images/minigame.png" alt="Minigame Combo" />
+      </div>
+      <div class="footer-plus-right">
+        <h2>Nhận tin tức mới nhất và ưu đãi đặc biệt từ HiAn!!</h2>
+        <p>
+          Đừng bỏ lỡ các thông báo về sản phẩm mới, chương trình khuyến mãi
+          hấp dẫn, và những bí quyết ăn vặt ngon miệng chỉ dành riêng cho bạn.
+          Hãy nhập email để đồng hành cùng HiAn ngay hôm nay!
+        </p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Nhập email của bạn" required />
+          <button type="submit">Đăng ký</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div id="footer"></div>
+  <div id="to-top"></div>
+</body>
+
+</html>

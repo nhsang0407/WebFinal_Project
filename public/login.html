@@ -12,7 +12,7 @@
     <body>
         <div class="container">
             <div class="left">
-                <img id="promo-img" src="../images/fruits.jpg"/> <!--add hinh vo cho dung hinh-->
+                <img id="promo-img" src="../images/out/combo best seller.png"/>
             </div>
             <div class="right">
                 <h2>Chào mừng đến với <span class="highlight">HiAn!!!</span></h2>
@@ -37,7 +37,7 @@
                 </div>
                     <div>
                         <label><input type="checkbox"/> Lưu mật khẩu</label>
-                        <a href="#" onclick="forgotPassword()">Quên mật khẩu?</a>
+                        <a href="#" onclick="changePassword()">Đổi mật khẩu</a>
                     </div>
                     <div class="center">
                         <button type="button" class="login-btn" onclick="process_login(login_uid.value,login_pwd.value)">Đăng nhập</button>
@@ -45,12 +45,40 @@
                 </form>
                 <!--Dang ky-->
                 <form id="registerForm">
+                    <label>Họ và tên</label>
+                    <input type="text" id="full_name" placeholder="Nhập họ và tên" />
+
+                    <label>Ngày tháng năm sinh</label>
+                    <input type="date" id="dob" placeholder="Nhập ngày tháng năm sinh" />
+
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label for="male">Giới tính</label>
+                      
+                        <input type="radio" id="male" name="gender" value="Male">
+                        <label for="male">Nam</label>
+                      
+                        <input type="radio" id="female" name="gender" value="Female">
+                        <label for="female">Nữ</label>
+                    </div>
+                      
+                    <label>Số điện thoại</label>
+                    <input type="number" id="phone" placeholder="Nhập số điện thoại" />
+
+                    <label>Email</label>
+                    <input type="text" id="email" placeholder="Nhập email " />
+
+                    <label>Địa chỉ</label>
+                    <input type="address" id="address" placeholder="Nhập địa chỉ" />
+
                     <label>Tên đăng nhập</label>
                     <input type="text" id="reg_uid" placeholder="Nhập tên đăng nhập của bạn" />
                     <label>Mật khẩu</label>
                     <input type="password" id="reg_pwd" placeholder="Nhập mật khẩu" />
                     <label>Xác nhận mật khẩu</label>
                     <input type="password" id="reg_pwd2" placeholder="Nhập lại mật khẩu" />
+                    
+                    
+                    
                     <div class="center">
                         <button type="button" class="register-btn" onclick="process_register()">Đăng ký</button>
                     </div>
@@ -58,7 +86,6 @@
 
                 <div class="social">
                     <button class="google" onclick="google_authentication()">Đăng nhập với Google</button>
-                    <button class="facebook">Đăng nhập với Facebook</button>
                 </div>
             </div>
         </div>

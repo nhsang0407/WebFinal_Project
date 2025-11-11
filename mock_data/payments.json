@@ -1,0 +1,47 @@
+[
+  {
+    "payment_id": 1,
+    "order_id": 10,
+    "payment_date": "2025-11-09T00:30:00Z",
+    "payment_method": "credit_card",
+    "amount": 769200.00,
+    "status": "completed",
+    "transaction_id": "TXN_2025_001"
+  },
+  {
+    "payment_id": 2,
+    "order_id": 11,
+    "payment_date": "2025-11-09T00:40:00Z",
+    "payment_method": "bank_transfer",
+    "amount": 769200.00,
+    "status": "pending",
+    "transaction_id": "TXN_2025_002"
+  },
+  {
+    "payment_id": 3,
+    "order_id": 12,
+    "payment_date": "2025-11-09T01:00:00Z",
+    "payment_method": "credit_card",
+    "amount": 769200.00,
+    "status": "completed",
+    "transaction_id": "TXN_2025_003"
+  },
+  {
+    "payment_id": 4,
+    "order_id": 13,
+    "payment_date": "2025-11-09T02:30:00Z",
+    "payment_method": "e_wallet",
+    "amount": 769200.00,
+    "status": "completed",
+    "transaction_id": "TXN_2025_004"
+  },
+  {
+    "payment_id": 5,
+    "order_id": 14,
+    "payment_date": "2025-11-10T10:30:00Z",
+    "payment_method": "credit_card",
+    "amount": 128640.00,
+    "status": "completed",
+    "transaction_id": "TXN_2025_005"
+  }
+]

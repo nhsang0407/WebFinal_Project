@@ -1,0 +1,52 @@
+[
+  {
+    "blog_id": 4,
+    "admin_id": 1,
+    "title": "test01",
+    "content": "demo2",
+    "category": "Câu chuyện thương hiệu",
+    "summary": "demo1",
+    "image_url": "",
+    "published": false,
+    "status": "draft",
+    "created_at": "2025-11-11T12:53:09.329Z",
+    "updated_at": "2025-11-11T12:56:08.675Z"
+  },
+  {
+    "blog_id": 3,
+    "admin_id": 2,
+    "title": "Top 5 trái cây sấy bán chạy nhất tháng 11",
+    "category": "Sản phẩm mới",
+    "summary": "Những sản phẩm trái cây sấy nổi bật nhất tháng 11: Xoài sấy dẻo, Chuối sấy giòn, Bưởi sấy dẻo và nhiều hơn nữa.",
+    "content": "Tháng 11 năm nay, những sản phẩm nổi bật nhất là: Xoài sấy dẻo, Chuối sấy giòn, Bưởi sấy dẻo, Sầu riêng sấy thăng hoa, và Combo 3 vị best seller.",
+    "image_url": "images/blog/blog3.jpg",
+    "created_at": "2025-11-05T09:15:00Z",
+    "published": false,
+    "status": "draft",
+    "updated_at": "2025-11-11T12:49:16.741Z"
+  },
+  {
+    "blog_id": 1,
+    "admin_id": 1,
+    "title": "Những lợi ích sức khỏe từ trái cây sấy",
+    "category": "Sức khỏe",
+    "summary": "Trái cây sấy chứa nhiều chất dinh dưỡng tốt cho sức khỏe, giúp tăng cường hệ miễn dịch và cung cấp năng lượng.",
+    "content": "Trái cây sấy không chỉ ngon mà còn chứa nhiều chất dinh dưỡng tốt cho sức khỏe. Chúng giúp tăng cường hệ miễn dịch, cung cấp năng lượng và các vi chất cần thiết.",
+    "image_url": "images/blog/blog1.jpg",
+    "created_at": "2025-11-01T10:00:00Z",
+    "published": true,
+    "status": "active"
+  },
+  {
+    "blog_id": 2,
+    "admin_id": 2,
+    "title": "Cách bảo quản trái cây sấy đúng cách",
+    "category": "Mẹo bảo quản",
+    "summary": "Hướng dẫn cách bảo quản trái cây sấy ở nơi khô ráo, thoáng mát để đảm bảo chất lượng sản phẩm.",
+    "content": "Để trái cây sấy luôn tươi ngon, bạn nên bảo quản ở nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp. Ngoài ra, hãy đậy kín bao bì sau khi sử dụng.",
+    "image_url": "images/blog/blog2.jpg",
+    "created_at": "2025-10-25T14:30:00Z",
+    "published": true,
+    "status": "active"
+  }
+]

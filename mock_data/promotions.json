@@ -1,0 +1,79 @@
+[
+  {
+    "promotion_id": 1,
+    "category": "Mã giảm giá",
+    "description": "Giảm giá trà gừng 30% từ 30.000 VNĐ",
+    "code": "PTHLVK2025",
+    "status": "On Sales",
+    "quantity_used": 0,
+    "quantity_limit": 30,
+    "start_date": "14/11/25",
+    "end_date": "06/12/25"
+  },
+  {
+    "promotion_id": 3,
+    "category": "Ưu đãi phí vận chuyển",
+    "description": "Giảm giá 20%, tối đa 30.000 VNĐ",
+    "code": "PTHLVK1938",
+    "status": "Expired",
+    "quantity_used": 30,
+    "quantity_limit": 50,
+    "start_date": "01/11/25",
+    "end_date": "31/12/25"
+  },
+  {
+    "promotion_id": 5,
+    "category": "Mã giảm giá",
+    "description": "Giảm giá 20%, tối đa 30.000 VNĐ",
+    "code": "PTHLVK2025",
+    "status": "On Sales",
+    "quantity_used": 30,
+    "quantity_limit": 50,
+    "start_date": "01/11/25",
+    "end_date": "31/12/25"
+  },
+  {
+    "promotion_id": 6,
+    "category": "Ưu đãi phí vận chuyển",
+    "description": "Giảm giá 20%, tối đa 30.000 VNĐ",
+    "code": "PTHLVK2025",
+    "status": "Expired",
+    "quantity_used": 30,
+    "quantity_limit": 50,
+    "start_date": "01/11/25",
+    "end_date": "31/12/25"
+  },
+  {
+    "promotion_id": 7,
+    "category": "Mã giảm giá",
+    "description": "Giảm giá 20%, tối đa 30.000 VNĐ",
+    "code": "PTHLVK2025",
+    "status": "Expired",
+    "quantity_used": 30,
+    "quantity_limit": 50,
+    "start_date": "01/11/25",
+    "end_date": "31/12/25"
+  },
+  {
+    "promotion_id": 8,
+    "code": "TEST01",
+    "description": "demo",
+    "start_date": "11/11/25",
+    "end_date": "21/11/25",
+    "category": "Mã giảm giá",
+    "quantity_limit": 30,
+    "quantity_used": 0,
+    "status": "On Sales"
+  },
+  {
+    "promotion_id": 9,
+    "code": "TEST01",
+    "description": "demo",
+    "start_date": "11/11/25",
+    "end_date": "27/11/25",
+    "category": "Mã giảm giá",
+    "quantity_limit": 30,
+    "quantity_used": 0,
+    "status": "On Sales"
+  }
+]

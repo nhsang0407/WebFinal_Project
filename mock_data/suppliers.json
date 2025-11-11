@@ -1,0 +1,20 @@
+[
+  {
+    "supplier_id": 1,
+    "supplier_name": "Tay Nguyen",
+    "contact_info": "012345667",
+    "address": "daklak"
+  },
+  {
+    "supplier_id": 2,
+    "supplier_name": "Da Lat Agricultural",
+    "contact_info": "0912345678",
+    "address": "Lâm Đồng, Đà Lạt"
+  },
+  {
+    "supplier_id": 3,
+    "supplier_name": "Mekong Delta Fruits",
+    "contact_info": "0987654321",
+    "address": "Cần Thơ"
+  }
+]

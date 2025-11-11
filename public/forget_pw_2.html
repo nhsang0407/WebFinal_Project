@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quên mật khẩu HiAn</title>
+        <link rel="stylesheet" type="text/css" href="../css/forget_pw.css" />
+    </head>
+    <body>
+    <div class="forgot-wrapper">
+        <div class="forgot-card">
+            <!-- LOGO -->
+            <img src="../images/Logo HiAn (dọc).png" alt="HiAn Logo" class="brand-logo" />
+
+            <!-- TIÊU ĐỀ -->
+            <h1 class="page-title">QUÊN MẬT KHẨU ?</h1>
+
+            <!-- MÔ TẢ TRONG BƯỚC 2 -->
+            <p class="desc">
+                Vui lòng nhập mã xác thực đã gửi đến email
+            </p>
+            <p class="desc email-mask" id="maskedEmail">
+                pham************@gmail.com
+            </p>
+
+            <!-- FORM NHẬP MÃ -->
+            <form class="form-block" id="verifyCodeForm">
+                <input
+                    type="text"
+                    id="verify_code"
+                    name="verify_code"
+                    class="text-input"
+                    placeholder="Nhập mã xác thực"
+                    required
+                />
+
+                <!-- COUNTDOWN -->
+                <div class="countdown" id="countdownBox">01:59</div>
+
+                <button type="submit" class="btn-primary" id="confirmCodeBtn">
+                    Xác nhận
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-secondary"
+                    id="backToLoginBtn"
+                >
+                    Quay lại đăng nhập
+                </button>
+            </form>
+        </div>
+    </div>
+    <script>
+    </script>
+</body>
+</html>

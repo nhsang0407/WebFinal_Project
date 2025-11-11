@@ -1,0 +1,293 @@
+h3 {
+  color: #5e9f39;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+/* ==== Khu vực giỏ hàng ==== */
+.your_cart {
+  width: 90%;
+  margin: 60px auto;
+}
+
+.cart-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 80px;
+}
+
+/* ==== Bảng sản phẩm ==== */
+.cart-table {
+  width: 950px;
+  background: #fff;
+  border-radius: 15px;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.cart-table th {
+  text-align: center;
+  padding: 18px;
+  color: #000000;
+  font-weight: 700;
+  border-bottom: 2px solid #e4ecd8;
+}
+
+.cart-table td {
+  padding: 18px;
+  vertical-align: middle;
+  border-bottom: 1px solid #eef2e9;
+}
+
+.cart-table tfoot td {
+  text-align: center;  /* Căn giữa các nút theo ngang */
+}
+
+.cart-table tfoot td button {
+  margin: 0 5px;      /* Khoảng cách giữa các nút */
+  justify-content: space-around;
+}
+
+
+
+/* ==== Thông tin sản phẩm ==== */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-item img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.cart-item div {
+  max-width: 220px;
+  font-size: 0.95rem;
+  color: #000000;
+}
+
+/* ==== Số lượng ==== */
+.qty-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3fbe9;
+  border-radius: 10px;
+  padding: 4px 10px;
+  width: fit-content;
+}
+
+.qty-box button {
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  color: #2e582d;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.qty-box input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2e582d;
+}
+
+/* ==== Tổng tiền ==== */
+.total-col {
+  color: #e94e2e;
+  font-weight: 700;
+  text-align: right;
+}
+
+
+.btn-continue,
+.btn-update {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-continue {
+  background-color: #f3fbe9;
+  color: #2e582d;
+}
+
+.btn-continue:hover {
+  background-color: #e2f5d5;
+}
+
+.btn-update {
+  background-color: #6cae3f;
+  color: white;
+}
+
+.btn-update:hover {
+  background-color: #5a9834;
+}
+
+/* ==== Cột cộng giỏ hàng ==== */
+.summary {
+  background-color: #f7fef2;
+  border: 1px solid #e4ecd8;
+  border-radius: 15px;
+  padding: 25px 30px;
+  flex: 1;
+  min-width: 280px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.summary h3 {
+  font-size: 1.3rem;
+  color: #284e2d;
+  margin-bottom: 15px;
+}
+
+.summary table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.summary td {
+  padding: 10px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.summary td:last-child {
+  text-align: right;
+  color: #d44d2c;
+  font-weight: 700;
+}
+
+.summary .total {
+  font-size: 1.2rem;
+  color: #e94e2e;
+}
+
+/* ==== Nút Thanh toán ==== */
+.btn-checkout {
+  width: 100%;
+  padding: 13px 0;
+  background-color: #6cae3f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-checkout:hover {
+  background-color: #5a9834;
+}
+
+/* ==== “Bạn có thể thích” ==== */
+/* ==== “Bạn có thể thích” ==== */
+.you-like {
+  background-color: #f8fbf6; /* nền xanh nhạt nhẹ hơn */
+  padding: 40px 0;
+  width: 100%;
+  margin-top: 40px;
+  border-top: 2px solid #d8e9d2; /* tạo ngăn cách nhẹ */
+}
+
+.you-like h3 {
+  color: #3b6b2a;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+.like-container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.like-products {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+}
+
+.like-products::-webkit-scrollbar {
+  height: 8px;
+}
+
+.like-products::-webkit-scrollbar-thumb {
+  background-color: #b2d3a8;
+  border-radius: 10px;
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  width: 220px;
+  flex-shrink: 0;
+  padding: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.image-container {
+  position: relative;
+  text-align: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.product-info {
+  padding: 10px 4px;
+  text-align: center;
+}
+
+.product-info h3 {
+  font-size: 1rem;
+  color: #333;
+  margin: 8px 0 4px;
+  line-height: 1.3;
+}
+
+.price {
+  color: #e94e2e;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 5px;
+  font-size: 0.9rem;
+}

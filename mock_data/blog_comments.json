@@ -1,0 +1,30 @@
+[
+  {
+    "comment_id": 1,
+    "blog_id": 1,
+    "customer_id": 1,
+    "comment": "Bài viết rất hữu ích, tôi đã học được nhiều điều mới!",
+    "created_at": "2025-11-02T11:00:00Z"
+  },
+  {
+    "comment_id": 2,
+    "blog_id": 1,
+    "customer_id": 2,
+    "comment": "Cảm ơn bạn đã chia sẻ thông tin bổ ích này",
+    "created_at": "2025-11-03T15:30:00Z"
+  },
+  {
+    "comment_id": 3,
+    "blog_id": 2,
+    "customer_id": 3,
+    "comment": "Mẹo bảo quản này thực sự giúp ích cho tôi rất nhiều",
+    "created_at": "2025-10-26T09:45:00Z"
+  },
+  {
+    "comment_id": 4,
+    "blog_id": 3,
+    "customer_id": 1,
+    "comment": "Sầu riêng sấy thăng hoa quá ngon, sẽ mua thêm!",
+    "created_at": "2025-11-06T16:20:00Z"
+  }
+]

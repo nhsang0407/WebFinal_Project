@@ -1,0 +1,44 @@
+[
+  {
+    "order_id": 10,
+    "customer_id": 1,
+    "order_date": "2025-11-09T00:27:26Z",
+    "total_amount": 769200.00,
+    "status": "Pending"
+  },
+  {
+    "order_id": 11,
+    "customer_id": 1,
+    "order_date": "2025-11-09T00:36:00Z",
+    "total_amount": 769200.00,
+    "status": "Pending"
+  },
+  {
+    "order_id": 12,
+    "customer_id": 1,
+    "order_date": "2025-11-09T00:37:38Z",
+    "total_amount": 769200.00,
+    "status": "Processing"
+  },
+  {
+    "order_id": 13,
+    "customer_id": 1,
+    "order_date": "2025-11-09T00:39:23Z",
+    "total_amount": 769200.00,
+    "status": "Shipped"
+  },
+  {
+    "order_id": 14,
+    "customer_id": 2,
+    "order_date": "2025-11-10T10:15:00Z",
+    "total_amount": 128640.00,
+    "status": "Completed"
+  },
+  {
+    "order_id": 15,
+    "customer_id": 3,
+    "order_date": "2025-11-10T14:20:00Z",
+    "total_amount": 345600.00,
+    "status": "Cancelled"
+  }
+]

@@ -1,0 +1,77 @@
+<header>
+    <div class="top-header">
+        <div class="logo">
+            <img src="../images/LogoHiAn_ngang.png" alt="HiAn Logo" />
+        </div>
+
+
+        <div class="search-bar">
+            <div class="search-category">
+                <!-- <select id="searchCategory">
+                    <option value="all">Tất cả sản phẩm</option>
+                </select> -->
+            </div>
+            <input type="text" id="searchInput" placeholder="Tìm kiếm" />
+            <button id="searchBtn"><i class="fa fa-search"></i></button>
+        </div>
+
+
+
+
+
+        <div class="user-actions">
+            <div class="icon">
+                <i class="fa fa-heart"></i>
+                <span>Yêu thích</span>
+            </div>
+            <div class="icon">
+                <a href="../cart_page.html"><i class="fa fa-shopping-cart"></i></a>
+                <span>Giỏ hàng</span>
+                <span id="cart-count" class="cart-count-badge">0</span>
+            </div>
+            <!--Khi chưa đăng nhập-->
+            <div class="auth-buttons" id="authButtons">
+                <button class="register-btn" onclick="window.location.href='../login.html?form=register'">Đăng
+                    ký</button>
+                <button class="login-btn" onclick="window.location.href='../login.html?form=login'">Đăng nhập</button>
+            </div>
+
+
+            <!--Khi đã đăng nhập-->
+            <div class="user-info" id="userInfo" style="display: none;" onclick="toggleMenu(event)">
+                <img src="../images/default-avatar.jpg" alt="User Avatar" class="avatar">
+                <span id="usernameDisplay">Người dùng</span>
+                <i class="fa fa-chevron-down"></i>
+
+
+                <!--Tạo dropdown-->
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a href="../Account.html">Tài khoản của tôi</a></li>
+                    <li><a href="../Account.html#orders">Đơn hàng của tôi</a></li>
+                    <li><a href="#" id="logoutBtn">Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="bottom-header">
+        <ul>
+            <!-- Các mục khác -->
+            <li class="active"><i class="fa fa-th-large"></i> Tất cả sản phẩm</li>
+            <li><a href="../index.html"><i class="fa fa-home"></i> Trang chủ</a></li>
+            <!-- About Us có dropdown -->
+            <li class="dropdown">
+                <a href="javascript:void(0)"><i class="fa fa-users"></i> Về chúng tôi <i class="fa fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="../Intro.html">Giới thiệu</a></li>
+                    <li><a href="../sellingpolicy.html">Chính sách</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-calendar"></i> Sự kiện</a></li>
+            <li><a href="../blog_list.html"><i class="fa fa-edit"></i> Blog</a></li>
+            <li><a href="../Contact.html"><i class="fa fa-envelope"></i> Liên hệ</a></li>
+        </ul>
+    </nav>
+</header>
+<div id="searchResults"></div>

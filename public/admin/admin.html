@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiAn Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+<body>
+    <!-- Auth Loading Screen -->
+    <div id="authLoadingScreen" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    ">
+        <div style="text-align: center;">
+            <div style="font-size: 24px; margin-bottom: 20px;">⏳ Đang kiểm tra quyền truy cập...</div>
+            <div style="width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid #52c41a; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+        </div>
+        <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    </div>
+
+    <div class="admin-container">
+        <!-- CONTENT WRAPPER -->
+        <div class="content-wrapper">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <img src="../images/LogoHiAn_ngang.png" alt="HiAn Logo" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Tổng quan</span>
+                </a>
+                
+                <!-- Products with submenu -->
+                <div class="nav-group">
+                    <a href="#" class="nav-item" onclick="toggleSubmenu(this); return false;">
+                        <i class="fas fa-box"></i>
+                        <span>Sản phẩm</span>
+                        <i class="fas fa-chevron-down" style="margin-left: auto; font-size: 12px;"></i>
+                    </a>
+                    <div class="submenu" style="display: none;">
+                        <a href="#" class="submenu-item" data-page="allProducts">
+                            <span>Tất cả sản phẩm</span>
+                        </a>
+                        <a href="#" class="submenu-item" data-page="productCategories">
+                            <span>Danh mục sản phẩm</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="#" class="nav-item" data-page="orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Đơn hàng</span>
+                </a>
+                <a href="#" class="nav-item" data-page="users">
+                    <i class="fas fa-users"></i>
+                    <span>Khách hàng</span>
+                </a>
+                <a href="#" class="nav-item" data-page="promotions">
+                    <i class="fas fa-gift"></i>
+                    <span>Khuyến mãi</span>
+                </a>
+                <a href="#" class="nav-item" data-page="blogs">
+                    <i class="fas fa-pen"></i>
+                    <span>Blog</span>
+                </a>
+                <hr style="margin: 10px 0; border: none; border-top: 1px solid #d9d9d9;">
+                <a href="#" class="nav-item logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- TOP BAR -->
+            <div class="topbar">
+                <div class="topbar-left">
+                    <h2 id="pageTitle">Tổng quan</h2>
+                </div>
+                <div class="topbar-right">
+                    <button class="icon-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="user-menu" onclick="showPage('account')">
+                        <img src="https://via.placeholder.com/40" alt="Admin" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Admin2203</div>
+                            <div class="user-role">Super Admin</div>
+                        </div>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT AREA -->
+            <div class="content-area">
+                <!-- DASHBOARD PAGE -->
+                <div class="page-content active" id="dashboardPage">
+                    <!-- STATS CARDS -->
+                    <div class="stats-grid">
+                        <div class="stat-card red">
+                            <div class="stat-value">N/A</div>
+                            <div class="stat-label">Đơn hàng</div>
+                        </div>
+
+                        <div class="stat-card orange">
+                            <div class="stat-value">N/A</div>
+                            <div class="stat-label">Khách hàng</div>
+                        </div>
+
+                        <div class="stat-card yellow">
+                            <div class="stat-value">N/A</div>
+                            <div class="stat-label">Sản phẩm bán chạy</div>
+                        </div>
+
+                        <div class="stat-card green">
+                            <div class="stat-value">N/A</div>
+                            <div class="stat-label">Doanh thu (VNĐ)</div>
+                        </div>
+                    </div>
+
+                    <!-- CHARTS -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Doanh thu</h3>                                
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h3>Hoạt động người dùng</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="activeUsersChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW ORDERS -->
+                    <div class="charts-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="table-card">
+                            <div class="table-header">
+                                <h3>Đơn hàng mới</h3>
+                                <a href="#" class="view-all">Xem tất cả</a>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Đơn hàng</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Đơn giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="newOrdersTable">
+                                    <!-- Dữ liệu sẽ được load bằng JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- TOP PRODUCTS -->
+                        <div class="table-card">
+                            <div class="table-header">
+                                <h3>Sản phẩm bán chạy</h3>
+                                <a href="#" class="view-all">Xem tất cả</a>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Đơn giá</th>
+                                        <th>Số lượng bán</th>
+                                        <th>Doanh thu</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="topProductsTable">
+                                    <!-- Dữ liệu sẽ được load bằng JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ALL PRODUCTS PAGE -->
+                <div class="page-content" id="allProductsPage">
+                    <div class="page-header">
+                        <h1>Tất cả sản phẩm</h1>
+                        <button class="btn btn-primary" onclick="showAddProductModal()">
+                            <i class="fas fa-plus"></i> Thêm sản phẩm
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+                        <input type="text" id="allProductSearch" placeholder="Tìm kiếm sản phẩm...">
+                        <select id="allProductCategoryFilter">
+                            <option value="">Tất cả danh mục</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="filterAllProducts()">
+                            <i class="fas fa-filter"></i> Lọc
+                        </button>
+                    </div>
+
+                    <div class="table-card">
+                        <table class="data-table">
+                            <thead>
+                                <tr style="background: #52c41a; color: white;">
+                                    <th>ID</th>
+                                    <th>Danh mục</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Hiển thị</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allProductsTable">
+                                <!-- Dữ liệu sẽ được load bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PRODUCT CATEGORIES PAGE -->
+                <div class="page-content" id="productCategoriesPage">
+                    <div class="page-header">
+                        <h1>DANH MỤC SẢN PHẨM</h1>
+                        <button class="btn btn-primary" onclick="showAddCategoryModal()">
+                            <i class="fas fa-plus"></i> Thêm danh mục
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+                        <input type="text" id="categorySearch" placeholder="Tìm kiếm danh mục...">
+                        <button class="btn btn-secondary" onclick="filterCategories()">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
+
+                    <div class="table-card">
+                        <table class="data-table">
+                            <thead>
+                                <tr style="background: #52c41a; color: white;">
+                                    <th>ID</th>
+                                    <th>Tên danh mục</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Số lượng sản phẩm</th>
+                                    <th>Hiển thị</th>
+                                    <th>Tác vụ</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoriesTable">
+                                <!-- Dữ liệu sẽ được load bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ORDERS PAGE -->
+                <div class="page-content" id="ordersPage">
+                    <!-- Header với tiêu đề và action buttons -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h1 style="color: #333; font-size: 24px; margin: 0;">DANH SÁCH ĐƠN HÀNG</h1>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="filter-btn" onclick="filterOrders('all')">Đơn hàng ↓</button>
+                            <input type="text" id="orderSearch" placeholder="Tìm kiếm..." style="padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; width: 150px;">
+                            <button style="padding: 8px 16px; background: #52c41a; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Bảng đơn hàng -->
+                    <div class="table-card" style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <table class="data-table" style="width: 100%; border-collapse: collapse;">
+                            <thead style="background: #60a23e;">
+                                <tr>
+                                    <th style="padding: 12px; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">STT</th>
+                                    <th style="padding: 12px; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Mã đơn hàng</th>
+                                    <th style="padding: 12px; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Khách hàng</th>
+                                    <th style="padding: 12px; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Thời gian</th>
+                                    <th style="padding: 12px; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Tình trạng</th>
+                                    <th style="padding: 12px; text-align: left; font-weight: 600; border-right: 1px solid #ddd;">Thành toán</th>
+                                    <th style="padding: 12px; text-align: center; font-weight: 600;">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable" style="background: #f0f8e6;">
+                                <!-- Dữ liệu sẽ được load bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-top: 20px;">
+                        <button onclick="prevOrderPage()" style="padding: 6px 10px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px;">‹</button>
+                        <span id="orderPaginationInfo" style="padding: 6px 10px;">1 2 3</span>
+                        <button onclick="nextOrderPage()" style="padding: 6px 10px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 4px;">›</button>
+                    </div>
+                </div>
+
+                <!-- USERS PAGE -->
+                <div class="page-content" id="usersPage">
+                    <div class="page-header">
+                        <h1>Quản lý khách hàng</h1>
+                    </div>
+
+                    <div class="filter-bar">
+                        <input type="text" id="userSearch" placeholder="Tìm kiếm khách hàng...">
+                        <select id="userRoleFilter">
+                            <option value="">Tất cả vai trò</option>
+                            <option value="super_admin">Super Admin</option>
+                            <option value="staff">Staff</option>
+                            <option value="customer">Customer</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="filterUsers()">
+                            <i class="fas fa-filter"></i> Lọc
+                        </button>
+                    </div>
+
+                    <div class="table-card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Email</th>
+                                    <th>Điện thoại</th>
+                                    <th>Vai trò</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Tổng số đơn hàng</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <!-- Dữ liệu sẽ được load bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- BLOGS PAGE -->
+                <div class="page-content" id="blogsPage">
+                    <div class="page-header">
+                        <h1>Quản lý Blog</h1>
+                        <button class="btn btn-primary" onclick="showAddBlogModal()">
+                            <i class="fas fa-plus"></i> Viết bài mới
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+                        <input type="text" id="blogSearch" placeholder="Tìm kiếm bài viết...">
+                        <select id="blogStatusFilter">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="active">Đang hiển thị trên website</option>
+                            <option value="draft">Đang ẩn</option>
+                        </select>
+                    </div>
+
+                    <div class="table-card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Người đăng</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Danh mục</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="blogsTable">
+                                <!-- Dữ liệu sẽ được load bằng JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PROMOTIONS PAGE -->
+                <div class="page-content" id="promotionsPage">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- ACCOUNT PAGE -->
+                <div class="page-content" id="accountPage">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- MODALS -->
+                <!-- Modal Chi tiết đơn hàng -->
+                <div class="modal" id="orderDetailModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+                    <div style="background: white; border-radius: 8px; max-width: 900px; width: 90%; max-height: 90vh; overflow-y: auto;">
+                        <!-- Header -->
+                        <div style="background: #52c41a; color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 8px 8px 0 0;">
+                            <h1 id="orderDetailTitle" style="margin: 0; font-size: 20px;">CHI TIẾT ĐƠN HÀNG</h1>
+                            <button onclick="closeOrderDetailModal()" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">✕</button>
+                        </div>
+
+                        <!-- Content -->
+                        <div id="orderDetailContent" style="padding: 20px; background: #e8f5e9;">
+                            <!-- Order info -->
+                            <div style="background: #c8e6c9; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div>
+                                        <div style="color: #558b2f; font-weight: 600; font-size: 12px;">Đơn hàng:</div>
+                                        <div id="orderCode" style="font-weight: 600; font-size: 14px;">--</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #558b2f; font-weight: 600; font-size: 12px;">Ngày đặt hàng:</div>
+                                        <div id="orderDate" style="font-weight: 600; font-size: 14px;">--</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #558b2f; font-weight: 600; font-size: 12px;">Thời gian:</div>
+                                        <div id="orderTime" style="font-weight: 600; font-size: 14px;">--</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #558b2f; font-weight: 600; font-size: 12px;">Tình trạng đơn hàng:</div>
+                                        <div id="orderStatus" style="font-weight: 600; font-size: 14px;">--</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Customer info -->
+                            <div style="background: #c8e6c9; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                                <div style="font-weight: 600; color: #333; margin-bottom: 10px;">Địa chỉ người nhận:</div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div>
+                                        <div style="color: #558b2f; font-weight: 600; font-size: 12px;">Họ và tên:</div>
+                                        <div id="customerName" style="font-weight: 600; font-size: 14px;">--</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #558b2f; font-weight: 600; font-size: 12px;">Địa chỉ:</div>
+                                        <div id="customerAddress" style="font-weight: 600; font-size: 14px;">--</div>
+                                    </div>
+                                    <div>
+                                        <div style="color: #558b2f; font-weight: 600; font-size: 12px;">Số điện thoại:</div>
+                                        <div id="customerPhone" style="font-weight: 600; font-size: 14px;">--</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Order items table -->
+                            <div style="background: white; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <thead style="background: #52c41a; color: white;">
+                                        <tr>
+                                            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Ảnh</th>
+                                            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Sản phẩm</th>
+                                            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Đơn giá</th>
+                                            <th style="padding: 12px; text-align: left; border-right: 1px solid #ddd;">Số lượng</th>
+                                            <th style="padding: 12px; text-align: left;">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orderItemsTable" style="background: #f0f8e6;">
+                                        <!-- Items will be inserted here -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Summary -->
+                            <div style="background: #c8e6c9; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span>Giá sản phẩm</span>
+                                    <span id="subtotal">0 đ</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span>Phí vận chuyển</span>
+                                    <span id="shippingFee">0 đ</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span>Khuyến mãi:</span>
+                                    <span id="discount">0 đ</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; border-top: 2px solid #52c41a; padding-top: 10px; font-weight: 600; font-size: 16px; color: #d32f2f;">
+                                    <span>Tổng tiền:</span>
+                                    <span id="totalAmount">0 đ</span>
+                                </div>
+                            </div>
+
+                            <!-- Payment method -->
+                            <div style="background: #c8e6c9; padding: 15px; border-radius: 4px;">
+                                <div style="font-weight: 600; color: #333; margin-bottom: 10px;">Phương thức thanh toán:</div>
+                                <div id="paymentMethod" style="font-weight: 600; font-size: 14px;">--</div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div style="background: #e8f5e9; padding: 15px; border-top: 1px solid #ddd; display: flex; justify-content: flex-end; gap: 10px;">
+                            <button onclick="closeOrderDetailModal()" style="padding: 10px 20px; background: #ddd; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">Đóng</button>
+                            <button style="padding: 10px 20px; background: #52c41a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">XUẤT HÓA ĐƠN</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal" id="editModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 id="modalTitle">Chỉnh sửa</h2>
+                            <button class="close-btn" onclick="closeModal()">&times;</button>
+                        </div>
+                        <div class="modal-body" id="modalBody">
+                            <!-- Nội dung sẽ được tạo động -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Modal (Thêm/Sửa Bài Viết) -->
+                <div class="modal" id="blogModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
+                    <div class="modal-content" style="background: #f0f8e6; width: 100%; max-width: 650px; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.25); overflow: hidden; margin: 20px auto;">
+                        <!-- Modal Header -->
+                        <div style="background: linear-gradient(135deg, #c8e6c9 0%, #b0ddb1 100%); padding: 28px 32px; border-bottom: none; display: flex; justify-content: space-between; align-items: center;">
+                            <h2 id="blogModalTitle" style="margin: 0; color: #1b5e20; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">THÊM BÀI VIẾT</h2>
+                            <button onclick="closeBlogModal()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #558b2f; line-height: 1; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; opacity: 0.7;" onmouseover="this.style.opacity='1'; this.style.color='#333'" onmouseout="this.style.opacity='0.7'; this.style.color='#558b2f'" title="Đóng cửa sổ">×</button>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div style="padding: 32px; background: #fafef9; max-height: calc(90vh - 120px); overflow-y: auto;">
+                            <form id="blogForm" onsubmit="saveBlog(event)">
+
+                                <!-- Tiêu đề -->
+                                <div style="margin-bottom: 24px;">
+                                    <label for="blogTitle" style="display: block; font-weight: 600; color: #333; margin-bottom: 10px; font-size: 14px; letter-spacing: 0.3px;">Tiêu đề <span style="color: #d32f2f;">*</span></label>
+                                    <input type="text" id="blogTitle" placeholder="Khách hôm nay ơi..." required style="width: 100%; padding: 12px 16px; border: 2px solid #c8e6c9; border-radius: 8px; font-size: 14px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'">
+                                </div>
+
+                                <!-- Danh mục blog -->
+                                <div style="margin-bottom: 24px;">
+                                    <label for="blogCategory" style="display: block; font-weight: 600; color: #333; margin-bottom: 10px; font-size: 14px; letter-spacing: 0.3px;">Danh mục blog <span style="color: #d32f2f;">*</span></label>
+                                    <select id="blogCategory" required style="width: 100%; padding: 12px 16px; border: 2px solid #c8e6c9; border-radius: 8px; font-size: 14px; background: white; cursor: pointer; box-sizing: border-box; transition: all 0.3s; font-family: inherit; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22><path fill=%22%2352c41a%22 d=%22M7 10l5 5 5-5z%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 40px;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'">
+                                        <option value="">Chọn danh mục</option>
+                                        <option value="Câu chuyện thương hiệu">Câu chuyện thương hiệu</option>
+                                        <option value="Chuyên kê từ nguyên liệu">Chuyên kê từ nguyên liệu</option>
+                                        <option value="Sản phẩm mới">Sản phẩm mới</option>
+                                        <option value="Góc sức khỏe và dinh dưỡng">Góc sức khỏe và dinh dưỡng</option>
+                                        <option value="Đánh giá và feedback khách hàng">Đánh giá và feedback khách hàng</option>
+                                    </select>
+                                </div>
+
+                                <!-- Trạng thái hiển thị -->
+                                <div style="margin-bottom: 24px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #e8f5e9;">
+                                    <label for="blogPublished" style="display: flex; align-items: center; cursor: pointer; gap: 12px; margin: 0;">
+                                        <input type="checkbox" id="blogPublished" checked style="width: 20px; height: 20px; cursor: pointer; accent-color: #52c41a; -webkit-appearance: none; appearance: none; border: 2px solid #52c41a; border-radius: 4px; padding: 0; position: relative; transition: all 0.2s;">
+                                        <span style="font-weight: 600; color: #333; font-size: 14px; letter-spacing: 0.3px;">Hiển thị bài viết trên website</span>
+                                    </label>
+                                </div>
+
+                                <!-- Tóm tắt bài viết -->
+                                <div style="margin-bottom: 24px;">
+                                    <label for="blogSummary" style="display: block; font-weight: 600; color: #333; margin-bottom: 10px; font-size: 14px; letter-spacing: 0.3px;">Tóm tắt bài viết <span style="color: #d32f2f;">*</span></label>
+                                    <textarea id="blogSummary" placeholder="Nhập tóm tắt..." required style="width: 100%; padding: 12px 16px; border: 2px solid #c8e6c9; border-radius: 8px; font-size: 14px; resize: vertical; min-height: 100px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'"></textarea>
+                                    <div style="font-size: 12px; color: #999; margin-top: 8px;">Nhập tối đa 500 ký tự</div>
+                                </div>
+
+                                <!-- Phần nội dung -->
+                                <div style="margin-bottom: 24px;">
+                                    <label for="blogContent" style="display: block; font-weight: 600; color: #333; margin-bottom: 10px; font-size: 14px; letter-spacing: 0.3px;">Nội dung <span style="color: #d32f2f;">*</span></label>
+                                    <div style="display: block; font-weight: 500; color: #666; margin-bottom: 8px; font-size: 12px; letter-spacing: 0.2px;">Nội dung 1</div>
+                                    <textarea id="blogContent" placeholder="Nhập nội dung..." required style="width: 100%; padding: 12px 16px; border: 2px solid #c8e6c9; border-radius: 8px; font-size: 14px; resize: vertical; min-height: 120px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white; margin-bottom: 16px;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'"></textarea>
+                                </div>
+
+                                <!-- Ảnh bìa -->
+                                <div style="margin-bottom: 28px;">
+                                    <label for="blogImage" style="display: block; font-weight: 600; color: #333; margin-bottom: 10px; font-size: 14px; letter-spacing: 0.3px;">Ảnh bìa <span style="color: #999; font-weight: 400;">(Tối đa 5MB, định dạng JPG/PNG)</span></label>
+                                    <button type="button" id="blogImageDropZone" onclick="document.getElementById('blogImage').click()" onmouseover="this.style.borderColor='#52c41a'; this.style.background='#f0fdf4'; this.style.boxShadow='0 4px 12px rgba(82, 196, 26, 0.1)'" onmouseout="this.style.borderColor='#b0ddb1'; this.style.background='#ffffff'; this.style.boxShadow='none'" ondrop="handleBlogImageDrop(event)" ondragover="event.preventDefault(); event.currentTarget.style.borderColor='#52c41a'; event.currentTarget.style.background='#f0fdf4';" ondragleave="event.currentTarget.style.borderColor='#b0ddb1'; event.currentTarget.style.background='#ffffff'" style="border: 2px dashed #b0ddb1; border-radius: 8px; padding: 40px 30px; text-align: center; background: #ffffff; cursor: pointer; transition: all 0.3s ease; position: relative; width: 100%; box-sizing: border-box; font-size: inherit; font-family: inherit;">
+                                        <input type="file" id="blogImage" accept="image/*" style="display: none;" onchange="handleBlogImageSelect(event)" tabindex="-1">
+                                        <div style="font-size: 48px; margin-bottom: 12px; color: #52c41a; line-height: 1; pointer-events: none;">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                        <div style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 15px; pointer-events: none;">Thêm ảnh bìa cho bài viết</div>
+                                        <div style="font-size: 13px; color: #999; pointer-events: none;">Kéo thả hoặc click để chọn ảnh</div>
+                                    </button>
+                                    <div id="blogImagePreview" style="margin-top: 16px; display: none;">
+                                        <div style="position: relative; border-radius: 8px; overflow: hidden; background: white; padding: 8px; border: 1px solid #e0e0e0;">
+                                            <img id="blogImageImg" alt="Xem trước ảnh bìa" style="width: 100%; height: auto; max-height: 250px; object-fit: cover; border-radius: 6px;">
+                                        </div>
+                                        <button type="button" onclick="clearBlogImage()" style="margin-top: 12px; padding: 10px 20px; background: #d9363e; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.background='#ff5c62'" onmouseout="this.style.background='#d9363e'" onFocus="this.style.outline='2px solid #d9363e'" onBlur="this.style.outline='none'">Xóa ảnh</button>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div style="display: flex; justify-content: center; gap: 16px; padding-top: 24px; border-top: 1px solid #e0e0e0;">
+                                    <button type="button" onclick="closeBlogModal()" style="padding: 12px 40px; background: white; color: #333; border: 2px solid #d9d9d9; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.2s; font-family: inherit; letter-spacing: 0.3px;" onmouseover="this.style.background='#fafafa'; this.style.borderColor='#999'" onmouseout="this.style.background='white'; this.style.borderColor='#d9d9d9'" onFocus="this.style.outline='2px solid #52c41a'" onBlur="this.style.outline='none'">Hủy bỏ</button>
+                                    <button type="submit" style="padding: 12px 40px; background: #52c41a; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.2s; font-family: inherit; box-shadow: 0 2px 8px rgba(82, 196, 26, 0.25); letter-spacing: 0.3px;" onmouseover="this.style.background='#3f8f12'; this.style.boxShadow='0 4px 12px rgba(82, 196, 26, 0.35)'" onmouseout="this.style.background='#52c41a'; this.style.boxShadow='0 2px 8px rgba(82, 196, 26, 0.25)'" onFocus="this.style.outline='2px solid white'" onBlur="this.style.outline='none'">Lưu lại bài viết</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Modal (Thêm/Sửa Sản Phẩm) -->
+                <div class="modal" id="productModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
+                    <div class="modal-content" style="background: #f0f8e6; width: 100%; max-width: 650px; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.25); overflow: hidden; margin: 20px auto;">
+                        <!-- Modal Header -->
+                        <div style="background: linear-gradient(135deg, #c8e6c9 0%, #b0ddb1 100%); padding: 28px 32px; border-bottom: none; display: flex; justify-content: space-between; align-items: center;">
+                            <h2 id="productModalTitle" style="margin: 0; color: #1b5e20; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">THÊM SẢN PHẨM MỚI</h2>
+                            <button onclick="closeProductModal()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #558b2f; line-height: 1; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; opacity: 0.7;" onmouseover="this.style.opacity='1'; this.style.color='#333'" onmouseout="this.style.opacity='0.7'; this.style.color='#558b2f'" title="Đóng cửa sổ">×</button>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div style="padding: 32px; background: #fafef9; max-height: calc(90vh - 120px); overflow-y: auto;">
+                            <form id="productForm" onsubmit="saveProduct(event)">
+
+                                <!-- Tên sản phẩm -->
+                                <div style="margin-bottom: 20px;">
+                                    <label for="productName" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Tên sản phẩm <span style="color: #d32f2f;">*</span></label>
+                                    <input type="text" id="productName" placeholder="Nhập tên sản phẩm mới" required style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'">
+                                </div>
+
+                                <!-- Danh mục -->
+                                <div style="margin-bottom: 20px;">
+                                    <label for="productCategory" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Danh mục <span style="color: #d32f2f;">*</span></label>
+                                    <select id="productCategory" required style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; background: white; cursor: pointer; box-sizing: border-box; transition: all 0.3s; font-family: inherit; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22><path fill=%22%2352c41a%22 d=%22M7 10l5 5 5-5z%22/></svg>'); background-repeat: no-repeat; background-position: right 10px center; padding-right: 35px;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'">
+                                        <option value="">Chọn danh mục</option>
+                                    </select>
+                                </div>
+
+                                <!-- Trạng thái hiển thị -->
+                                <div style="margin-bottom: 20px; padding: 12px; background: white; border-radius: 6px; border: 1px solid #e8f5e9;">
+                                    <div style="display: flex; gap: 20px;">
+                                        <label style="display: flex; align-items: center; cursor: pointer; gap: 8px; margin: 0;">
+                                            <input type="checkbox" id="productActive" checked style="width: 16px; height: 16px; cursor: pointer; accent-color: #52c41a; -webkit-appearance: none; appearance: none; border: 2px solid #52c41a; border-radius: 3px; padding: 0; position: relative; transition: all 0.2s;">
+                                            <span style="font-weight: 500; color: #333; font-size: 13px;">Hiển thị bài viết trên website</span>
+                                        </label>
+                                        <label style="display: flex; align-items: center; cursor: pointer; gap: 8px; margin: 0;">
+                                            <input type="checkbox" id="productPromotion" style="width: 16px; height: 16px; cursor: pointer; accent-color: #52c41a; -webkit-appearance: none; appearance: none; border: 2px solid #999; border-radius: 3px; padding: 0; position: relative; transition: all 0.2s;">
+                                            <span style="font-weight: 500; color: #333; font-size: 13px;">Sản phẩm đang được khuyến mãi</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Giá cả -->
+                                <div style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <div>
+                                        <label for="productPrice" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Giá hiện tại <span style="color: #d32f2f;">*</span></label>
+                                        <input type="number" id="productPrice" placeholder="0" required min="0" style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'">
+                                    </div>
+                                    <div>
+                                        <label for="productOldPrice" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Khuyến mãi (%)</label>
+                                        <input type="number" id="productOldPrice" placeholder="0" min="0" max="100" style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'">
+                                    </div>
+                                </div>
+
+                                <!-- Giá sau khuyến mãi -->
+                                <div style="margin-bottom: 20px;">
+                                    <label style="font-weight: 600; color: #d32f2f; font-size: 14px;">Giá sau khuyến mãi: <span id="finalPrice">0 VNĐ</span></label>
+                                </div>
+
+                                <!-- Thông tin sản phẩm -->
+                                <div style="margin-bottom: 20px;">
+                                    <label for="productSummary" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Thông tin sản phẩm <span style="color: #d32f2f;">*</span></label>
+                                    <textarea id="productSummary" placeholder="Nhập thông tin sản phẩm..." required style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; resize: vertical; min-height: 100px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'"></textarea>
+                                </div>
+
+                                <!-- Mô tả sản phẩm -->
+                                <div style="margin-bottom: 20px;">
+                                    <label for="productDescription" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Mô tả sản phẩm</label>
+                                    <textarea id="productDescription" placeholder="Nhập mô tả sản phẩm..." style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; resize: vertical; min-height: 100px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'"></textarea>
+                                </div>
+
+                                <!-- Hình ảnh sản phẩm -->
+                                <div style="margin-bottom: 20px;">
+                                    <label for="productImage" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Hình ảnh sản phẩm <span style="color: #999; font-weight: 400; font-size: 12px;">(Tối đa 5MB, định dạng JPG/PNG)</span></label>
+                                    <button type="button" id="productImageDropZone" onclick="document.getElementById('productImage').click()" onmouseover="this.style.borderColor='#52c41a'; this.style.background='#f0fdf4'; this.style.boxShadow='0 4px 12px rgba(82, 196, 26, 0.1)'" onmouseout="this.style.borderColor='#b0ddb1'; this.style.background='#ffffff'; this.style.boxShadow='none'" ondrop="handleProductImageDrop(event)" ondragover="event.preventDefault(); event.currentTarget.style.borderColor='#52c41a'; event.currentTarget.style.background='#f0fdf4';" ondragleave="event.currentTarget.style.borderColor='#b0ddb1'; event.currentTarget.style.background='#ffffff'" style="border: 2px dashed #b0ddb1; border-radius: 6px; padding: 30px 20px; text-align: center; background: #ffffff; cursor: pointer; transition: all 0.3s ease; position: relative; width: 100%; box-sizing: border-box; font-size: inherit; font-family: inherit;">
+                                        <input type="file" id="productImage" accept="image/*" style="display: none;" onchange="handleProductImageSelect(event)" tabindex="-1">
+                                        <div style="font-size: 40px; margin-bottom: 10px; color: #999; line-height: 1; pointer-events: none;">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                        <div style="font-weight: 600; color: #666; margin-bottom: 6px; font-size: 14px; pointer-events: none;">Thêm tấp tin hình cách lưu thì</div>
+                                        <div style="font-size: 12px; color: #999; pointer-events: none;">Kích cõ tối đa với cáu lưu ở một mục SOHO</div>
+                                    </button>
+                                    <div id="productImagePreview" style="margin-top: 12px; display: none;">
+                                        <div style="position: relative; border-radius: 6px; overflow: hidden; background: white; padding: 6px; border: 1px solid #e0e0e0;">
+                                            <img id="productImageImg" alt="Xem trước ảnh sản phẩm" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; border-radius: 4px;">
+                                        </div>
+                                        <button type="button" onclick="clearProductImage()" style="margin-top: 10px; padding: 8px 16px; background: #d9363e; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.background='#ff5c62'" onmouseout="this.style.background='#d9363e'">Xóa ảnh</button>
+                                    </div>
+                                </div>
+
+                                <!-- Hình ảnh mô tả -->
+                                <div style="margin-bottom: 28px;">
+                                    <label for="productDetailImage" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Hình ảnh mô tả <span style="color: #999; font-weight: 400; font-size: 12px;">(Tối đa 5MB, định dạng JPG/PNG)</span></label>
+                                    <button type="button" id="productDetailImageDropZone" onclick="document.getElementById('productDetailImage').click()" onmouseover="this.style.borderColor='#52c41a'; this.style.background='#f0fdf4'; this.style.boxShadow='0 4px 12px rgba(82, 196, 26, 0.1)'" onmouseout="this.style.borderColor='#b0ddb1'; this.style.background='#ffffff'; this.style.boxShadow='none'" ondrop="handleProductDetailImageDrop(event)" ondragover="event.preventDefault(); event.currentTarget.style.borderColor='#52c41a'; event.currentTarget.style.background='#f0fdf4';" ondragleave="event.currentTarget.style.borderColor='#b0ddb1'; event.currentTarget.style.background='#ffffff'" style="border: 2px dashed #b0ddb1; border-radius: 6px; padding: 30px 20px; text-align: center; background: #ffffff; cursor: pointer; transition: all 0.3s ease; position: relative; width: 100%; box-sizing: border-box; font-size: inherit; font-family: inherit;">
+                                        <input type="file" id="productDetailImage" accept="image/*" style="display: none;" onchange="handleProductDetailImageSelect(event)" tabindex="-1">
+                                        <div style="font-size: 40px; margin-bottom: 10px; color: #999; line-height: 1; pointer-events: none;">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+                                        <div style="font-weight: 600; color: #666; margin-bottom: 6px; font-size: 14px; pointer-events: none;">Thêm tấp tin hình cách lưu thì</div>
+                                        <div style="font-size: 12px; color: #999; pointer-events: none;">Kích cõ tối đa với cáu lưu ở một mục SOHO</div>
+                                    </button>
+                                    <div id="productDetailImagePreview" style="margin-top: 12px; display: none;">
+                                        <div style="position: relative; border-radius: 6px; overflow: hidden; background: white; padding: 6px; border: 1px solid #e0e0e0;">
+                                            <img id="productDetailImageImg" alt="Xem trước ảnh mô tả" style="width: 100%; height: auto; max-height: 200px; object-fit: cover; border-radius: 4px;">
+                                        </div>
+                                        <button type="button" onclick="clearProductDetailImage()" style="margin-top: 10px; padding: 8px 16px; background: #d9363e; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.background='#ff5c62'" onmouseout="this.style.background='#d9363e'">Xóa ảnh</button>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div style="display: flex; justify-content: center; gap: 16px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                                    <button type="button" onclick="closeProductModal()" style="padding: 10px 30px; background: white; color: #333; border: 2px solid #d9d9d9; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.background='#fafafa'; this.style.borderColor='#999'" onmouseout="this.style.background='white'; this.style.borderColor='#d9d9d9'">Hủy bỏ</button>
+                                    <button type="submit" style="padding: 10px 30px; background: #52c41a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.2s; font-family: inherit; box-shadow: 0 2px 8px rgba(82, 196, 26, 0.25);" onmouseover="this.style.background='#3f8f12'; this.style.boxShadow='0 4px 12px rgba(82, 196, 26, 0.35)'" onmouseout="this.style.background='#52c41a'; this.style.boxShadow='0 2px 8px rgba(82, 196, 26, 0.25)'">Lưu</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CATEGORY MODAL -->
+                <div class="modal" id="categoryModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
+                    <div class="modal-content" style="background: #f0f8e6; width: 100%; max-width: 500px; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.25); overflow: hidden; margin: 20px auto;">
+                        <!-- Modal Header -->
+                        <div style="background: linear-gradient(135deg, #c8e6c9 0%, #b0ddb1 100%); padding: 28px 32px; border-bottom: none; display: flex; justify-content: space-between; align-items: center;">
+                            <h2 id="categoryModalTitle" style="margin: 0; color: #1b5e20; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">THÊM DANH MỤC MỚI</h2>
+                            <button onclick="closeCategoryModal()" style="background: none; border: none; font-size: 28px; cursor: pointer; color: #558b2f; line-height: 1; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; opacity: 0.7;" onmouseover="this.style.opacity='1'; this.style.color='#333'" onmouseout="this.style.opacity='0.7'; this.style.color='#558b2f'" title="Đóng cửa sổ">×</button>
+                        </div>
+
+                        <!-- Modal Body -->
+                        <div style="padding: 32px; background: #fafef9;">
+                            <form id="categoryForm" onsubmit="saveCategory(event)">
+                                <!-- Tên danh mục -->
+                                <div style="margin-bottom: 20px;">
+                                    <label for="categoryName" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Tên danh mục <span style="color: #d32f2f;">*</span></label>
+                                    <input type="text" id="categoryName" placeholder="Nhập tên danh mục" required style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'">
+                                </div>
+
+                                <!-- Mô tả danh mục -->
+                                <div style="margin-bottom: 28px;">
+                                    <label for="categoryDescription" style="display: block; font-weight: 600; color: #333; margin-bottom: 8px; font-size: 14px;">Mô tả danh mục</label>
+                                    <textarea id="categoryDescription" placeholder="Nhập mô tả danh mục..." style="width: 100%; padding: 10px 14px; border: 2px solid #c8e6c9; border-radius: 6px; font-size: 14px; resize: vertical; min-height: 80px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background: white;" onfocus="this.style.borderColor='#52c41a'; this.style.boxShadow='0 0 0 4px rgba(82, 196, 26, 0.08)'" onblur="this.style.borderColor='#c8e6c9'; this.style.boxShadow='none'"></textarea>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                                    <button type="button" onclick="closeCategoryModal()" style="padding: 10px 30px; background: white; color: #333; border: 2px solid #d9d9d9; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.background='#fafafa'; this.style.borderColor='#999'" onmouseout="this.style.background='white'; this.style.borderColor='#d9d9d9'">Hủy bỏ</button>
+                                    <button type="submit" style="padding: 10px 30px; background: #52c41a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.background='#45b817'" onmouseout="this.style.background='#52c41a'">Lưu danh mục</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <!-- END CONTENT WRAPPER -->
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="admin-api.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

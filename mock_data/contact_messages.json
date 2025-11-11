@@ -1,0 +1,47 @@
+[
+  {
+    "message_id": 1,
+    "customer_id": 1,
+    "name": "Nguyễn Văn A",
+    "email": "nguyenvana@gmail.com",
+    "subject": "Hỏi về chính sách hoàn trả",
+    "message": "Tôi muốn hỏi về chính sách hoàn trả sản phẩm của cửa hàng. Nếu sản phẩm bị lỗi tôi có thể hoàn trả được không?",
+    "created_at": "2025-11-08T10:15:00Z"
+  },
+  {
+    "message_id": 2,
+    "customer_id": 2,
+    "name": "Trần Thị B",
+    "email": "tranthib@yahoo.com",
+    "subject": "Đơn hàng #12 chưa nhận được",
+    "message": "Đơn hàng của tôi (mã #12) đã 3 ngày nhưng vẫn chưa nhận được. Có vấn đề gì không?",
+    "created_at": "2025-11-07T14:45:00Z"
+  },
+  {
+    "message_id": 3,
+    "customer_id": null,
+    "name": "Lê Văn C",
+    "email": "levanc@hotmail.com",
+    "subject": "Muốn trở thành nhà cung cấp",
+    "message": "Tôi có sản phẩm trái cây sấy chất lượng cao, muốn biết cách để cung cấp cho cửa hàng của bạn.",
+    "created_at": "2025-11-05T08:30:00Z"
+  },
+  {
+    "message_id": 4,
+    "customer_id": 3,
+    "name": "Phạm Thị D",
+    "email": "phamthid@gmail.com",
+    "subject": "Feedback về chất lượng sản phẩm",
+    "message": "Sản phẩm rất tốt! Tôi rất hài lòng với chất lượng và giao hàng. Sẽ tiếp tục mua ở đây.",
+    "created_at": "2025-11-04T12:00:00Z"
+  },
+  {
+    "message_id": 5,
+    "customer_id": 1,
+    "name": "Hoàng Văn E",
+    "email": "hoangvane@gmail.com",
+    "subject": "Giảm giá cho đơn hàng lớn",
+    "message": "Tôi muốn đặt hàng số lượng lớn, có thể giảm giá không? Bao nhiêu thì được giảm?",
+    "created_at": "2025-11-03T16:30:00Z"
+  }
+]

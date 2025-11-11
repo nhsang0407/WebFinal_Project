@@ -1,5 +1,5 @@
 import express from "express";
-import { login, checkAuth, logout, userInfo, registerUser } from "../controllers/userController.js";
+import { login, checkAuth, logout, userInfo, registerUser, changePassword, userInfoSession } from "../controllers/userController.js";
 import passport from "../config/passport.js";
 
 const router = express.Router();
@@ -17,10 +17,10 @@ router.get('/google/callback',
     (req, res) => {
         // Lưu user vào session
         req.session.user = {
-            id: req.user.user_id || req.user._id,
+            id: req.user.id,
             user_name: req.user.name,
             email: req.user.email,
-            role: req.user.role || 'user'
+            role: req.user.role || 'customer'
         };
 
         // Redirect về frontend
@@ -33,5 +33,8 @@ router.post("/logout", logout);
 router.post("/register", registerUser)
 
 router.get("/profile", userInfo);
+router.get("/userinfo",userInfoSession)
+
+router.post("/change-password", changePassword);
 
 export default router;

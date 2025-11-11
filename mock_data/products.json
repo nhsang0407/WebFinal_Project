@@ -90,19 +90,5 @@
     "image_url": "images/Hình/sầu riêng.png",
     "created_at": "2025-10-23T22:01:21Z",
     "old_price": 316800
-  },
-  {
-    "product_id": 69,
-    "category_id": 5,
-    "supplier_id": 1,
-    "admin_id": 1,
-    "product_name": "Combo 3 vị best seller",
-    "description": "Gói combo gồm 3 vị trái cây sấy được yêu thích nhất",
-    "detail": "combo",
-    "price": 150000,
-    "stock": 100,
-    "image_url": "NOIMAGE",
-    "created_at": "2025-10-23T22:01:21Z",
-    "old_price": 180000
   }
 ]

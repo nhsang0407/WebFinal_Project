@@ -36,9 +36,9 @@ export const getProducts = async (req, res) => {
   try {
     const search = req.query.search || "";
     const products = await getAllProducts(search);
-    res.json(products);
+    res.json({ success: true, data: products });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -46,20 +46,20 @@ export const getProducts = async (req, res) => {
 export const getProduct = async (req, res) => {
   try {
     const product = await getProductById(req.params.id);
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    res.json(product);
+    if (!product) return res.status(404).json({ success: false, message: "Product not found" });
+    res.json({ success: true, data: product });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
 
 export const createNewProduct = async (req, res) => {
   try {
-    const id = await createProduct(req.body);
-    res.status(201).json({ message: "Product created", id });
+    const result = await createProduct(req.body);
+    res.status(201).json({ success: true, message: "Product created", id: result.id });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -67,10 +67,10 @@ export const createNewProduct = async (req, res) => {
 export const updateExistingProduct = async (req, res) => {
   try {
     const result = await updateProduct(req.params.id, req.body);
-    if (result === 0) return res.status(404).json({ message: "Product not found" });
-    res.json({ message: "Product updated" });
+    if (result === 0) return res.status(404).json({ success: false, message: "Product not found" });
+    res.json({ success: true, message: "Product updated" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -78,10 +78,10 @@ export const updateExistingProduct = async (req, res) => {
 export const removeProduct = async (req, res) => {
   try {
     const result = await deleteProduct(req.params.id);
-    if (result === 0) return res.status(404).json({ message: "Product not found" });
-    res.json({ message: "Product deleted" });
+    if (result === 0) return res.status(404).json({ success: false, message: "Product not found" });
+    res.json({ success: true, message: "Product deleted" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
@@ -94,20 +94,17 @@ export const removeProduct = async (req, res) => {
 export const filterProductsByCategory = async (req, res) => {
   const { category_id } = req.params;
 
-
   try {
     const products = await getProductsByCategory(category_id);
 
-
     if (!products || products.length === 0) {
-      return res.status(404).json({ message: "Không có sản phẩm nào trong danh mục này" });
+      return res.status(404).json({ success: false, message: "Không có sản phẩm nào trong danh mục này" });
     }
 
-
-    res.status(200).json(products);
+    res.status(200).json({ success: true, data: products });
   } catch (error) {
     console.error("❌ Error filtering products by category:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
 

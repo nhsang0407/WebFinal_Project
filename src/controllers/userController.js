@@ -6,31 +6,81 @@ import { findUserByIdentifier, createUser } from "../models/userModel.js";
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    // Kiểm tra đầu vào
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email và mật khẩu là bắt buộc" });
+    }
+
+    // Tìm user trong DB thật
     const user = await findUserByIdentifier(email);
-    console.log(user);
+    if (!user) {
+      return res.status(404).json({ message: "Không tìm thấy người dùng" });
+    }
 
-    if (!user) return res.status(404).json({ message: "User not found" });
-
+    // So sánh mật khẩu
     const valid = await bcrypt.compare(password, user.password_hash);
-    if (!valid) return res.status(401).json({ message: "Wrong password" });
+    if (!valid) {
+      return res.status(401).json({ message: "Sai mật khẩu" });
+    }
 
+    // Tạo session user
     req.session.user = {
       id: user.user_id,
-      user_name: user.user_name,
+      user_name: user.username,
       email: user.email,
-      role: user.role
+      role: user.role || "customer"
     };
 
-    res.json({ message: "Login success", user: req.session.user });
+    // Đảm bảo session được lưu
+    req.session.save((err) => {
+      if (err) {
+        console.error("[LOGIN] Lỗi khi lưu session:", err);
+      } else {
+        console.log(`[LOGIN] Session lưu thành công cho user: ${user.username}`);
+      }
+    });
+
+    // Xác định trang redirect theo vai trò
+    let redirectUrl = "../index.html";
+    if (user.role === "admin" || user.role === "super_admin" || user.role === "staff") {
+      redirectUrl = "../admin/admin.html";
+    }
+
+    console.log(`[LOGIN] ${user.username} (${user.email}) - Vai trò: ${user.role} - SessionID: ${req.sessionID}`);
+
+    // Trả về phản hồi JSON
+    res.json({
+      message: "Đăng nhập thành công",
+      user: req.session.user,
+      redirectUrl: redirectUrl
+    });
+
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("[LOGIN] Lỗi:", err);
+    res.status(500).json({ message: "Lỗi máy chủ nội bộ" });
   }
 };
 
 // check Logged
 export const checkAuth = (req, res) => {
-  if (req.session.user) res.json({ loggedIn: true, user: req.session.user });
-  else res.json({ loggedIn: false });
+  console.log("[CHECKAUTH] Checking authentication...");
+  console.log("[CHECKAUTH] Session ID:", req.sessionID);
+  console.log("[CHECKAUTH] Session data:", req.session);
+  console.log("[CHECKAUTH] User in session:", req.session?.user);
+  
+  if (req.session.user) {
+    console.log("[CHECKAUTH] ✅ User is authenticated:", req.session.user.user_name);
+    res.json({ 
+      loggedIn: true, 
+      user: req.session.user,
+      role: req.session.user.role,
+      note: "Session verified"
+    });
+  } else {
+    console.log("[CHECKAUTH] ❌ No user in session");
+    res.json({ loggedIn: false });
+  }
 };
 
 // process logout method
@@ -88,6 +138,8 @@ export const registerUser = async (req, res) => {
 
     // Insert user mới
     const newUserId = await createUser(newUser);
+    // Insert user mới vào mock data
+    const result = await mockUserModel.createUser(newUser);
 
     // Response
     res.status(201).json({
@@ -115,8 +167,15 @@ export const userInfo = async (req, res) => {
 
     const profile = {
       id: user.user_id,
+      username: user.username,
       email: user.email,
-      role: user.role
+      full_name: user.full_name,
+      phone: user.phone,
+      address: user.address,
+      gender: user.gender,
+      date_of_birth: user.date_of_birth,
+      role: user.role,
+      loyalty_points: user.loyalty_points
     };
 
     return res.json({ message: "Method success", profile });
@@ -150,6 +209,9 @@ export const changePassword = async (req, res) => {
       newHashedPassword,
       username,
     ]);
+    await mockUserModel.updateUser(user.user_id, {
+          password_hash: newHashedPassword
+        });
 
     res.status(200).json({ message: "Đổi mật khẩu thành công" });
   } catch (error) {

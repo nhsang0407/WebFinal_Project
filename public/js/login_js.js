@@ -66,17 +66,26 @@ window.onload = async function () {
 
 // Login action
 async function process_login(login_uid, login_pwd) {
-    const rememberBox = document.querySelector("#loginForm input[type='checkbox']");
-    const res = await fetch(`${API_BASE_URL}/users/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: login_uid, password: login_pwd }),
-        credentials: "include"
-    });
+    try {
+        const rememberBox = document.querySelector("#loginForm input[type='checkbox']");
+        
+        // Step 1: Send login request
+        const res = await fetch(`${API_BASE_URL}/users/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: login_uid, password: login_pwd }),
+            credentials: "include"
+        });
 
-    const data = await res.json();
-    if (res.ok) {
-        if (rememberBox.checked) { // is check remember 
+        const data = await res.json();
+        
+        if (!res.ok) {
+            alert(data.message || "Đăng nhập thất bại!");
+            return;
+        }
+
+        // Step 2: Login successful - handle remember checkbox
+        if (rememberBox.checked) {
             localStorage.setItem("savedUsername", login_uid);
             localStorage.setItem("savedPassword", login_pwd);
         } else {
@@ -85,9 +94,49 @@ async function process_login(login_uid, login_pwd) {
         }
 
         alert("Đăng nhập thành công!");
-        window.location.href = "../index.html";
-    } else {
-        alert(data.message);
+
+        // Step 3: Determine redirect URL
+        const redirectUrl = data.redirectUrl || "../index.html";
+
+        // Step 4: For admin redirects, wait a moment for session to settle, then redirect
+        const looksLikeAdmin = /\/admin\//i.test(redirectUrl) || /admin(-|_)?dashboard|admin\.html/i.test(redirectUrl);
+        
+        if (looksLikeAdmin) {
+            console.log("Admin redirect detected, waiting for session to settle...");
+            // Wait 800ms for session to be established on server
+            await new Promise(r => setTimeout(r, 800));
+            
+            // Then verify session is set before redirect
+            try {
+                const checkRes = await fetch(`${API_BASE_URL}/users/checkAuth`, { 
+                    method: 'GET', 
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (checkRes.ok) {
+                    const checkData = await checkRes.json();
+                    if (checkData && checkData.loggedIn) {
+                        const role = checkData.role || checkData.user?.role;
+                        if (role === 'admin' || role === 'super_admin' || role === 'staff') {
+                            console.log(`✅ Session verified for admin role: ${role}`);
+                            window.location.href = redirectUrl;
+                            return;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn("Could not verify session before redirect, proceeding anyway:", err);
+            }
+        }
+
+        // Redirect to the target URL
+        console.log("Redirecting to:", redirectUrl);
+        window.location.href = redirectUrl;
+        
+    } catch (error) {
+        console.error("Login error:", error);
+        alert("Lỗi kết nối. Vui lòng kiểm tra kết nối mạng và thử lại!");
     }
 }
 
